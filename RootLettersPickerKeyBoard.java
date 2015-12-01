@@ -12,7 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.util.AppUtil.getResource;
 import static javafx.geometry.NodeOrientation.RIGHT_TO_LEFT;
 
 /**
@@ -83,6 +82,8 @@ public class RootLettersPickerKeyBoard extends VBox {
         initializeListeners();
 
         setRootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical);
+
+        setStyle("-fx-background-color: beige;-fx-border-color: #2e8b57;-fx-border-width: 2px;-fx-padding: 10;-fx-spacing: 8;");
     }
 
     private void initializeListeners() {
@@ -130,11 +131,6 @@ public class RootLettersPickerKeyBoard extends VBox {
 
     public final ObjectProperty<ArabicLetterType> fourthRadicalProperty() {
         return fourthRadical;
-    }
-
-    @Override
-    public String getUserAgentStylesheet() {
-        return getResource("sarf-engine-ui.css").toExternalForm();
     }
 
     private ArabicLabelView createLabel(ArabicLetterType letter, int index) {
