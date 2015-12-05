@@ -9,7 +9,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import static javafx.beans.binding.Bindings.when;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import static javafx.scene.paint.Color.*;
 
 /**
@@ -17,12 +16,10 @@ import static javafx.scene.paint.Color.*;
  */
 public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
 
-    private final StackPane stackPane;
-
     public ArabicLabelViewSkin(final ArabicLabelView view) {
         super(view);
 
-        stackPane = new StackPane();
+        StackPane stackPane = new StackPane();
         stackPane.setFocusTraversable(true);
 
         final Text label = new Text();
@@ -47,9 +44,6 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
         stackPane.disableProperty().bind(view.disabledProperty());
 
         stackPane.getChildren().addAll(background, label);
-        stackPane.setMinSize(USE_PREF_SIZE, USE_PREF_SIZE);
-        stackPane.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
-        stackPane.setPrefSize(view.getLabelWidth(), view.getLabelHeight());
         getChildren().add(stackPane);
     }
 

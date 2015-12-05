@@ -6,18 +6,15 @@ import com.alphasystem.arabic.ui.ArabicLabelView;
 import com.alphasystem.arabic.ui.RootLettersPicker;
 import com.alphasystem.arabic.ui.RootLettersPickerKeyBoard;
 import javafx.geometry.Bounds;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.SkinBase;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
 
-import static com.alphasystem.arabic.model.ArabicLetterType.SPACE;
+import static com.alphasystem.arabic.model.ArabicLetters.WORD_SPACE;
 import static com.alphasystem.arabic.model.ArabicWord.concatenate;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
@@ -27,17 +24,16 @@ import static com.alphasystem.util.AppUtil.getResourceAsStream;
  */
 public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
 
-    private static final ArabicWord WORD_SPACE = getWord(SPACE, SPACE, SPACE, SPACE);
-
     public RootLettersPickerSkin(RootLettersPicker control) {
         super(control);
         initializeSkin();
     }
 
     private void initializeSkin() {
-        FlowPane flowPane = new FlowPane();
-        flowPane.setAlignment(getSkinnable().getAlignment());
-        flowPane.alignmentProperty().bind(getSkinnable().alignmentProperty());
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(1);
+        gridPane.setAlignment(getSkinnable().getAlignment());
+        gridPane.alignmentProperty().bind(getSkinnable().alignmentProperty());
 
         RootLettersPickerKeyBoard keyBoard = new RootLettersPickerKeyBoard();
 
@@ -53,9 +49,9 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
 
         ArabicLabelView label = new ArabicLabelView();
         label.setDisable(true);
-        label.setLabelWidth(196);
+        label.setLabelWidth(160);
         label.setLabelHeight(32);
-        label.setFont(Font.font("Arabic Typesetting", FontWeight.EXTRA_BOLD, 30));
+        label.setFont(Font.font("Arabic Typesetting", 26));
 
         updateView(keyBoard, label);
 
@@ -63,12 +59,10 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
         pickerButton.setGraphic(new ImageView(new Image(getResourceAsStream("images.root-letters-icon.png"))));
         pickerButton.setOnAction(event -> showPopup(keyboardPopup, pickerButton));
 
-        flowPane.getChildren().addAll(label, pickerButton);
+        gridPane.add(label, 0, 0);
+        gridPane.add(pickerButton, 1, 0);
 
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(flowPane);
-
-        getChildren().add(borderPane);
+        getChildren().add(gridPane);
     }
 
     private void updateView(RootLettersPickerKeyBoard keyBoard, ArabicLabelView label) {
