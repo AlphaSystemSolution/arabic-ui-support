@@ -49,7 +49,7 @@ public class ArabicLabelToggleGroup {
                         });
 
                         c.getAddedSubList().stream().filter(t -> ArabicLabelToggleGroup.this.equals(t.getGroup())).forEach(t -> {
-                            t.readonlySelectedProperty().addListener((o, ov, nv) -> {
+                            t.selectedProperty().addListener((o, ov, nv) -> {
                                 if (nv) {
                                     selectedValues.add(t);
                                 } else {
@@ -162,20 +162,20 @@ public class ArabicLabelToggleGroup {
             if (!isMultipleSelect()) {
                 ArabicLabelView selectedLabel = getSelectedLabel();
                 if (selectedLabel != null) {
-                    selectedLabel.readonlySelectedProperty().set(false);
+                    selectedLabel.setSelect(false);
                 }
                 setSelectedLabel(view);
             }
         }
-        view.readonlySelectedProperty().set(selected);
+        view.setSelected(selected);
     }
 
     public void reset(ArabicSupport... values) {
         toggles.forEach(view -> {
-            view.setSelected(false);
+            view.setSelect(false);
             ArabicSupport label = view.getLabel();
             if (values != null && label != null && contains(values, label)) {
-                view.setSelected(true);
+                view.setSelect(true);
             }
         });
     }

@@ -19,8 +19,8 @@ public class ArabicLabelView extends Control {
 
     private final DoubleProperty labelWidth = new SimpleDoubleProperty(DEFAULT_WIDTH, "width");
     private final DoubleProperty labelHeight = new SimpleDoubleProperty(DEFAULT_HEIGHT, "height");
-    private final BooleanProperty selected = new SimpleBooleanProperty(false, "selected");
-    private final BooleanProperty readonlySelected = new SimpleBooleanProperty();
+    private final ReadOnlyBooleanWrapper selected = new ReadOnlyBooleanWrapper(false, "selected");
+    private final BooleanProperty select = new SimpleBooleanProperty();
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(DEFAULT_FONT, "font");
     private final ObjectProperty<ArabicSupport> label = new SimpleObjectProperty<>(null, "label");
     private final ObjectProperty<ArabicLabelToggleGroup> group = new SimpleObjectProperty<>(null, "group");
@@ -40,9 +40,8 @@ public class ArabicLabelView extends Control {
         setLabelWidth(DEFAULT_WIDTH);
         setLabelHeight(DEFAULT_HEIGHT);
         setFont(DEFAULT_FONT);
-        selectedProperty().addListener((o, oV, nV) -> makeSelection(nV));
-        setSelected(false);
-        readonlySelectedProperty().set(false);
+        select.addListener((observable, oldValue, newValue) -> makeSelection(newValue));
+        setSelect(false);
     }
 
     @Override
@@ -78,16 +77,16 @@ public class ArabicLabelView extends Control {
         return selected.get();
     }
 
-    public final void setSelected(boolean selected) {
-        this.selected.set(selected);
+    public final ReadOnlyBooleanProperty selectedProperty() {
+        return selected.getReadOnlyProperty();
     }
 
-    public final BooleanProperty selectedProperty() {
-        return selected;
+    void setSelected(boolean s) {
+        selected.set(s);
     }
 
-    public final BooleanProperty readonlySelectedProperty() {
-        return readonlySelected;
+    public final void setSelect(boolean select) {
+        this.select.set(select);
     }
 
     public final ArabicLabelToggleGroup getGroup() {
@@ -127,20 +126,21 @@ public class ArabicLabelView extends Control {
         return label;
     }
 
-
-    public void makeSelection(Boolean value) {
+    private void makeSelection(Boolean value) {
         if (isDisabled()) {
-            setSelected(false);
+            setSelect(false);
             return;
         }
         ArabicLabelToggleGroup group = getGroup();
-        if (value == null) {
-            value = !readonlySelectedProperty().get();
-        }
-        if (group == null) {
-            setSelected(value);
-        } else {
+        value = (value == null) ? !isSelected() : value;
+        if (group != null) {
             group.setSelected(this, value);
         }
+    }
+
+    @Override
+    public String toString() {
+        ArabicSupport label = getLabel();
+        return label == null ? super.toString() : label.toString();
     }
 }

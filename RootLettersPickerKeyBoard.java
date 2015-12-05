@@ -47,6 +47,7 @@ public class RootLettersPickerKeyBoard extends VBox {
         group.setMultipleSelect(false);
         group.setWidth(32);
         group.setHeight(32);
+        group.setFont(FONT);
 
         setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         setSpacing(SPACING);
@@ -134,17 +135,11 @@ public class RootLettersPickerKeyBoard extends VBox {
 
     private ArabicLabelView createLabel(ArabicLetterType letter, int index) {
         ArabicLabelView label = new ArabicLabelView(letter);
-        label.readonlySelectedProperty().addListener((o, oV, nV) -> {
-            if (currentView != null) {
-                currentView.setSelected(false);
-            }
+        label.selectedProperty().addListener((o, oV, nV) -> {
             currentIndex = index;
             currentView = labels[currentIndex];
         });
         label.setGroup(group);
-        label.setLabelWidth(32);
-        label.setLabelHeight(32);
-        label.setFont(FONT);
         return label;
     }
 
@@ -174,13 +169,15 @@ public class RootLettersPickerKeyBoard extends VBox {
         }
         button.setGraphic(graphic);
         button.setOnAction(event -> {
-            if (currentView != null) {
-                currentView.setLabel(letter);
-                currentView.setSelected(false);
+            ArabicLabelView selectedLabel = group.getSelectedLabel();
+            if(selectedLabel != null){
+                selectedLabel.setLabel(letter);
+                selectedLabel.setSelect(false);
             }
+
             currentIndex = (currentIndex + 1) % 4;
             currentView = labels[currentIndex];
-            currentView.setSelected(true);
+            currentView.setSelect(true);
         });
         return button;
     }
@@ -199,7 +196,7 @@ public class RootLettersPickerKeyBoard extends VBox {
 
     private void selectFirst() {
         currentIndex = 0;
-        labels[currentIndex].setSelected(true);
         currentView = labels[currentIndex];
+        currentView.setSelect(true);
     }
 }

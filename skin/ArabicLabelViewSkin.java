@@ -42,8 +42,8 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
         background.setOnMouseClicked(event -> makeSelection(view));
         background.widthProperty().bind(view.labelWidthProperty());
         background.heightProperty().bind(view.labelHeightProperty());
-        background.strokeProperty().bind(when(view.readonlySelectedProperty()).then(RED).otherwise(BLACK));
-        background.strokeWidthProperty().bind(when(view.readonlySelectedProperty()).then(2).otherwise(1));
+        background.strokeProperty().bind(when(view.selectedProperty()).then(RED).otherwise(BLACK));
+        background.strokeWidthProperty().bind(when(view.selectedProperty()).then(2).otherwise(1));
         stackPane.disableProperty().bind(view.disabledProperty());
 
         stackPane.getChildren().addAll(background, label);
@@ -63,7 +63,6 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
     }
 
     private void makeSelection(ArabicLabelView view) {
-        stackPane.requestFocus();
-        view.makeSelection(null);
+        view.setSelect(!view.isSelected());
     }
 }
