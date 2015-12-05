@@ -36,7 +36,8 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
 
     private void initializeSkin() {
         FlowPane flowPane = new FlowPane();
-        flowPane.setAlignment(Pos.CENTER);
+        flowPane.setAlignment(getSkinnable().getAlignment());
+        flowPane.alignmentProperty().bind(getSkinnable().alignmentProperty());
 
         RootLettersPickerKeyBoard keyBoard = new RootLettersPickerKeyBoard();
 
@@ -47,10 +48,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
         keyboardPopup.setOnHiding(event -> {
             ArabicLetterType[] rootLetters = keyBoard.getRootLetters();
             final RootLettersPicker skinnable = getSkinnable();
-            skinnable.setFirstRadical(rootLetters[0]);
-            skinnable.setSecondRadical(rootLetters[1]);
-            skinnable.setThirdRadical(rootLetters[2]);
-            skinnable.setFourthRadical(rootLetters[3]);
+            skinnable.setRootLetters(rootLetters[0], rootLetters[1], rootLetters[2], rootLetters[3]);
         });
 
         ArabicLabelView label = new ArabicLabelView();

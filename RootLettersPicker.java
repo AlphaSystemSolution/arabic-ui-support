@@ -4,6 +4,7 @@ import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.ui.skin.RootLettersPickerSkin;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Pos;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
@@ -16,8 +17,9 @@ public class RootLettersPicker extends Control {
     private final ObjectProperty<ArabicLetterType> secondRadical = new SimpleObjectProperty<>();
     private final ObjectProperty<ArabicLetterType> thirdRadical = new SimpleObjectProperty<>();
     private final ObjectProperty<ArabicLetterType> fourthRadical = new SimpleObjectProperty<>();
+    private final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(Pos.CENTER_LEFT);
 
-    public RootLettersPicker(){
+    public RootLettersPicker() {
     }
 
     @Override
@@ -71,5 +73,25 @@ public class RootLettersPicker extends Control {
 
     public final void setFourthRadical(ArabicLetterType fourthRadical) {
         this.fourthRadical.set(fourthRadical);
+    }
+
+    public final Pos getAlignment() {
+        return alignment.get();
+    }
+
+    public final ObjectProperty<Pos> alignmentProperty() {
+        return alignment;
+    }
+
+    public final void setAlignment(Pos alignment) {
+        this.alignment.set(alignment);
+    }
+
+    public final void setRootLetters(final ArabicLetterType firstRadical, final ArabicLetterType secondRadical,
+                                     final ArabicLetterType thirdRadical, final ArabicLetterType fourthRadical) {
+        setFirstRadical(firstRadical);
+        setSecondRadical(secondRadical);
+        setThirdRadical(thirdRadical);
+        setFourthRadical(fourthRadical);
     }
 }
