@@ -5,6 +5,7 @@ import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -39,7 +40,15 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
         background.setOnMouseClicked(event -> makeSelection(view));
         background.widthProperty().bind(view.labelWidthProperty());
         background.heightProperty().bind(view.labelHeightProperty());
-        background.strokeProperty().bind(when(view.selectedProperty()).then(RED).otherwise(BLACK));
+        view.disabledProperty().addListener((o, ov, nv) -> {
+            Color strokeColor = nv ? LIGHTGRAY : (view.isSelected() ? RED : BLACK);
+            background.setStroke(strokeColor);
+        });
+        view.selectedProperty().addListener((o, ov, nv) -> {
+            Color strokeColor = nv ? RED : (view.isDisabled() ? LIGHTGRAY : BLACK);
+            background.setStroke(strokeColor);
+        });
+        background.setStroke(view.isDisabled() ? LIGHTGRAY : (view.isSelected() ? RED : BLACK));
         background.strokeWidthProperty().bind(when(view.selectedProperty()).then(2).otherwise(1));
         stackPane.disableProperty().bind(view.disabledProperty());
 
