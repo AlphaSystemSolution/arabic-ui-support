@@ -6,6 +6,8 @@ import com.sun.javafx.collections.VetoableListDecorator;
 import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import java.util.List;
@@ -21,10 +23,12 @@ import static org.apache.commons.lang3.ArrayUtils.contains;
 public class ArabicLabelToggleGroup {
 
     public static final Font DEFAULT_FONT = Font.font("Arabic Typesetting", BLACK, REGULAR, 36.0);
+    public static final Color DEFAULT_COLOR = Color.BLACK;
 
     private final DoubleProperty width = new SimpleDoubleProperty(0, "width");
     private final DoubleProperty height = new SimpleDoubleProperty(0, "width");
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(null, "font");
+    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(DEFAULT_COLOR, "stroke");
     private final BooleanProperty disable = new SimpleBooleanProperty(false, "disable");
     private final BooleanProperty multipleSelect = new SimpleBooleanProperty(true, "multipleSelect");
     private final ObjectProperty<ArabicLabelView> selectedLabel = new SimpleObjectProperty<>(null, "selectedLabel");
@@ -70,6 +74,10 @@ public class ArabicLabelToggleGroup {
                                 t.setFont(font);
                             }
                             t.setDisable(getDisable());
+                            Paint stroke = getStroke();
+                            if (stroke != null) {
+                                t.setStroke(stroke);
+                            }
                         });
 
                     } // end of "while (c.next())"
@@ -158,6 +166,18 @@ public class ArabicLabelToggleGroup {
 
     public final ObjectProperty<Font> fontProperty() {
         return font;
+    }
+
+    public final Paint getStroke() {
+        return stroke.get();
+    }
+
+    public final ObjectProperty<Paint> strokeProperty() {
+        return stroke;
+    }
+
+    public final void setStroke(Paint stroke) {
+        this.stroke.set(stroke);
     }
 
     public final ObservableList<ArabicLabelView> getToggles() {

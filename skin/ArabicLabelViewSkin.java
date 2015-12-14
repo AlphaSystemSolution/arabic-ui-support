@@ -31,6 +31,7 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
             label.setText(getLabelText(nV));
         });
         label.setText(getLabelText(view.getLabel()));
+        label.setStroke(view.getStroke());
 
         final Rectangle background = new Rectangle(view.getWidth(), view.getHeight());
         background.setFill(TRANSPARENT);
@@ -48,6 +49,7 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
             Color strokeColor = nv ? RED : (view.isDisabled() ? LIGHTGRAY : BLACK);
             background.setStroke(strokeColor);
         });
+        label.strokeProperty().bind(view.strokeProperty());
         background.setStroke(view.isDisabled() ? LIGHTGRAY : (view.isSelected() ? RED : BLACK));
         background.strokeWidthProperty().bind(when(view.selectedProperty()).then(2).otherwise(1));
         stackPane.disableProperty().bind(view.disabledProperty());

@@ -5,8 +5,10 @@ import com.alphasystem.arabic.ui.skin.ArabicLabelViewSkin;
 import javafx.beans.property.*;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
+import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_COLOR;
 import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_FONT;
 
 /**
@@ -20,6 +22,7 @@ public class ArabicLabelView extends Control {
     private final ReadOnlyBooleanWrapper selected = new ReadOnlyBooleanWrapper(false, "selected");
     private final BooleanProperty select = new SimpleBooleanProperty();
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(DEFAULT_FONT, "font");
+    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(DEFAULT_COLOR, "stroke");
     private final ObjectProperty<ArabicSupport> label = new SimpleObjectProperty<>(null, "label");
     private final ObjectProperty<ArabicLabelToggleGroup> group = new SimpleObjectProperty<>(null, "group");
 
@@ -38,6 +41,7 @@ public class ArabicLabelView extends Control {
         setWidth(DEFAULT_WIDTH);
         setHeight(DEFAULT_HEIGHT);
         setFont(DEFAULT_FONT);
+        setStroke(DEFAULT_COLOR);
         select.addListener((observable, oldValue, newValue) -> makeSelection(newValue));
         setSelect(false);
     }
@@ -53,7 +57,7 @@ public class ArabicLabelView extends Control {
     }
 
     @Override
-    public void setWidth(double value){
+    public void setWidth(double value) {
         super.setWidth(value);
     }
 
@@ -96,6 +100,18 @@ public class ArabicLabelView extends Control {
 
     public final ObjectProperty<Font> fontProperty() {
         return font;
+    }
+
+    public final Paint getStroke() {
+        return stroke.get();
+    }
+
+    public final ObjectProperty<Paint> strokeProperty() {
+        return stroke;
+    }
+
+    public final void setStroke(Paint stroke) {
+        this.stroke.set(stroke);
     }
 
     public final ArabicSupport getLabel() {
