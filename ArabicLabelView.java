@@ -17,8 +17,6 @@ public class ArabicLabelView extends Control {
     private static final int DEFAULT_WIDTH = 64;
     private static final int DEFAULT_HEIGHT = 64;
 
-    private final DoubleProperty labelWidth = new SimpleDoubleProperty(DEFAULT_WIDTH, "width");
-    private final DoubleProperty labelHeight = new SimpleDoubleProperty(DEFAULT_HEIGHT, "height");
     private final ReadOnlyBooleanWrapper selected = new ReadOnlyBooleanWrapper(false, "selected");
     private final BooleanProperty select = new SimpleBooleanProperty();
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(DEFAULT_FONT, "font");
@@ -37,8 +35,8 @@ public class ArabicLabelView extends Control {
             setUserData(nV);
         });
         setLabel(label);
-        setLabelWidth(DEFAULT_WIDTH);
-        setLabelHeight(DEFAULT_HEIGHT);
+        setWidth(DEFAULT_WIDTH);
+        setHeight(DEFAULT_HEIGHT);
         setFont(DEFAULT_FONT);
         select.addListener((observable, oldValue, newValue) -> makeSelection(newValue));
         setSelect(false);
@@ -49,28 +47,14 @@ public class ArabicLabelView extends Control {
         return new ArabicLabelViewSkin(this);
     }
 
-    public final double getLabelHeight() {
-        return labelHeight.get();
+    @Override
+    public void setHeight(double value) {
+        super.setHeight(value);
     }
 
-    public final void setLabelHeight(double labelHeight) {
-        this.labelHeight.set(labelHeight);
-    }
-
-    public final DoubleProperty labelHeightProperty() {
-        return labelHeight;
-    }
-
-    public final double getLabelWidth() {
-        return labelWidth.get();
-    }
-
-    public final void setLabelWidth(double labelWidth) {
-        this.labelWidth.set(labelWidth);
-    }
-
-    public final DoubleProperty labelWidthProperty() {
-        return labelWidth;
+    @Override
+    public void setWidth(double value){
+        super.setWidth(value);
     }
 
     public final boolean isSelected() {

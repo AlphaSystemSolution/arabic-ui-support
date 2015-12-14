@@ -25,6 +25,7 @@ public class ArabicLabelToggleGroup {
     private final DoubleProperty width = new SimpleDoubleProperty(0, "width");
     private final DoubleProperty height = new SimpleDoubleProperty(0, "width");
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(null, "font");
+    private final BooleanProperty disable = new SimpleBooleanProperty(false, "disable");
     private final BooleanProperty multipleSelect = new SimpleBooleanProperty(true, "multipleSelect");
     private final ObjectProperty<ArabicLabelView> selectedLabel = new SimpleObjectProperty<>(null, "selectedLabel");
     private final ObservableList<ArabicLabelView> selectedValues = observableArrayList();
@@ -58,16 +59,17 @@ public class ArabicLabelToggleGroup {
                             });
                             double width = getWidth();
                             if (width > 0) {
-                                t.setLabelWidth(width);
+                                t.setWidth(width);
                             }
                             double height = getHeight();
                             if (height > 0) {
-                                t.setLabelHeight(height);
+                                t.setHeight(height);
                             }
                             Font font = getFont();
                             if (font != null) {
                                 t.setFont(font);
                             }
+                            t.setDisable(getDisable());
                         });
 
                     } // end of "while (c.next())"
@@ -84,6 +86,18 @@ public class ArabicLabelToggleGroup {
      */
     public ArabicLabelToggleGroup() {
         setMultipleSelect(true);
+    }
+
+    public final boolean getDisable() {
+        return disable.get();
+    }
+
+    public final BooleanProperty disableProperty() {
+        return disable;
+    }
+
+    public final void setDisable(boolean disable) {
+        this.disable.set(disable);
     }
 
     public final boolean isMultipleSelect() {

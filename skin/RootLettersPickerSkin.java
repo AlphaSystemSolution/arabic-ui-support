@@ -49,8 +49,8 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
 
         ArabicLabelView label = new ArabicLabelView();
         label.setDisable(true);
-        label.setLabelWidth(160);
-        label.setLabelHeight(32);
+        label.setWidth(160);
+        label.setHeight(32);
         label.setFont(Font.font("Arabic Typesetting", 26));
 
         updateView(keyBoard, label);
