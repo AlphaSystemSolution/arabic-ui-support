@@ -3,6 +3,7 @@ package com.alphasystem.arabic.ui;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.ui.skin.ArabicLabelViewSkin;
 import javafx.beans.property.*;
+import javafx.geometry.Pos;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.paint.Paint;
@@ -10,6 +11,7 @@ import javafx.scene.text.Font;
 
 import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_STROKE;
 import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_FONT;
+import static javafx.geometry.Pos.CENTER;
 import static javafx.scene.paint.Color.*;
 
 /**
@@ -27,6 +29,7 @@ public class ArabicLabelView extends Control {
     private final ObjectProperty<Paint> unSelectedStroke = new SimpleObjectProperty<>(BLACK, "unSelectedStroke");
     private final ObjectProperty<Paint> selectedStroke = new SimpleObjectProperty<>(RED, "unSelectedStroke");
     private final ObjectProperty<Paint> disabledStroke = new SimpleObjectProperty<>(LIGHTGRAY, "unSelectedStroke");
+    private final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(CENTER, "alignment");
     private final ObjectProperty<ArabicSupport> label = new SimpleObjectProperty<>(null, "label");
     private final ObjectProperty<ArabicLabelToggleGroup> group = new SimpleObjectProperty<>(null, "group");
 
@@ -49,6 +52,7 @@ public class ArabicLabelView extends Control {
         setUnSelectedStroke(BLACK);
         setSelectedStroke(RED);
         setDisabledStroke(LIGHTGRAY);
+        setAlignment(CENTER);
         select.addListener((observable, oldValue, newValue) -> makeSelection(newValue));
         setSelect(false);
     }
@@ -155,6 +159,18 @@ public class ArabicLabelView extends Control {
 
     public final void setDisabledStroke(Paint disabledStroke) {
         this.disabledStroke.set((disabledStroke == null) ? LIGHTGRAY : disabledStroke);
+    }
+
+    public final Pos getAlignment() {
+        return alignment.get();
+    }
+
+    public final ObjectProperty<Pos> alignmentProperty() {
+        return alignment;
+    }
+
+    public final void setAlignment(Pos alignment) {
+        this.alignment.set((alignment == null) ? CENTER : alignment);
     }
 
     public final ArabicSupport getLabel() {

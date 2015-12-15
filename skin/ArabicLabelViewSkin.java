@@ -3,14 +3,17 @@ package com.alphasystem.arabic.ui.skin;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.ArabicLabelView;
+import javafx.geometry.Pos;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import static javafx.beans.binding.Bindings.when;
 import static javafx.scene.paint.Color.TRANSPARENT;
+import static javafx.scene.text.TextAlignment.RIGHT;
 
 /**
  * @author sali
@@ -21,6 +24,7 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
         super(view);
 
         StackPane stackPane = new StackPane();
+        stackPane.setAlignment(view.getAlignment());
         stackPane.setFocusTraversable(true);
 
         final Text label = new Text();
@@ -32,6 +36,7 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
         });
         label.setText(getLabelText(view.getLabel()));
         label.setStroke(view.getStroke());
+        label.setTextAlignment(RIGHT);
 
         final Rectangle background = new Rectangle(view.getWidth(), view.getHeight());
         background.setFill(TRANSPARENT);
@@ -56,6 +61,7 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
                 view.getSelectedStroke() : view.getUnSelectedStroke()));
         background.strokeWidthProperty().bind(when(view.selectedProperty()).then(2).otherwise(1));
         stackPane.disableProperty().bind(view.disabledProperty());
+        stackPane.alignmentProperty().bind(view.alignmentProperty());
 
         stackPane.getChildren().addAll(background, label);
         getChildren().add(stackPane);
