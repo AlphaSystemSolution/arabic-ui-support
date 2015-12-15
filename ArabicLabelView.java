@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 
 import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_COLOR;
 import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_FONT;
+import static javafx.scene.paint.Color.*;
 
 /**
  * @author sali
@@ -23,6 +24,9 @@ public class ArabicLabelView extends Control {
     private final BooleanProperty select = new SimpleBooleanProperty();
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(DEFAULT_FONT, "font");
     private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(DEFAULT_COLOR, "stroke");
+    private final ObjectProperty<Paint> unSelectedStroke = new SimpleObjectProperty<>(BLACK, "unSelectedStroke");
+    private final ObjectProperty<Paint> selectedStroke = new SimpleObjectProperty<>(RED, "unSelectedStroke");
+    private final ObjectProperty<Paint> disabledStroke = new SimpleObjectProperty<>(LIGHTGRAY, "unSelectedStroke");
     private final ObjectProperty<ArabicSupport> label = new SimpleObjectProperty<>(null, "label");
     private final ObjectProperty<ArabicLabelToggleGroup> group = new SimpleObjectProperty<>(null, "group");
 
@@ -42,6 +46,9 @@ public class ArabicLabelView extends Control {
         setHeight(DEFAULT_HEIGHT);
         setFont(DEFAULT_FONT);
         setStroke(DEFAULT_COLOR);
+        setUnSelectedStroke(BLACK);
+        setSelectedStroke(RED);
+        setDisabledStroke(LIGHTGRAY);
         select.addListener((observable, oldValue, newValue) -> makeSelection(newValue));
         setSelect(false);
     }
@@ -53,12 +60,12 @@ public class ArabicLabelView extends Control {
 
     @Override
     public void setHeight(double value) {
-        super.setHeight(value);
+        super.setHeight((value <= 0) ? DEFAULT_HEIGHT : value);
     }
 
     @Override
     public void setWidth(double value) {
-        super.setWidth(value);
+        super.setWidth((value <= 0) ? DEFAULT_WIDTH : value);
     }
 
     public final boolean isSelected() {
@@ -95,7 +102,7 @@ public class ArabicLabelView extends Control {
     }
 
     public final void setFont(Font font) {
-        this.font.set(font);
+        this.font.set((font == null) ? DEFAULT_FONT : font);
     }
 
     public final ObjectProperty<Font> fontProperty() {
@@ -111,7 +118,43 @@ public class ArabicLabelView extends Control {
     }
 
     public final void setStroke(Paint stroke) {
-        this.stroke.set(stroke);
+        this.stroke.set((stroke == null) ? DEFAULT_COLOR : stroke);
+    }
+
+    public final Paint getUnSelectedStroke() {
+        return unSelectedStroke.get();
+    }
+
+    public final ObjectProperty<Paint> unSelectedStrokeProperty() {
+        return unSelectedStroke;
+    }
+
+    public final void setUnSelectedStroke(Paint unSelectedStroke) {
+        this.unSelectedStroke.set((unSelectedStroke == null) ? BLACK : unSelectedStroke);
+    }
+
+    public final Paint getSelectedStroke() {
+        return selectedStroke.get();
+    }
+
+    public final ObjectProperty<Paint> selectedStrokeProperty() {
+        return selectedStroke;
+    }
+
+    public final void setSelectedStroke(Paint selectedStroke) {
+        this.selectedStroke.set((selectedStroke == null) ? RED : selectedStroke);
+    }
+
+    public final Paint getDisabledStroke() {
+        return disabledStroke.get();
+    }
+
+    public final ObjectProperty<Paint> disabledStrokeProperty() {
+        return disabledStroke;
+    }
+
+    public final void setDisabledStroke(Paint disabledStroke) {
+        this.disabledStroke.set((disabledStroke == null) ? LIGHTGRAY : disabledStroke);
     }
 
     public final ArabicSupport getLabel() {

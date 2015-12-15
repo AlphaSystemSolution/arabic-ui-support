@@ -5,12 +5,12 @@ import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import static javafx.beans.binding.Bindings.when;
-import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.TRANSPARENT;
 
 /**
  * @author sali
@@ -42,15 +42,18 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
         background.widthProperty().bind(view.widthProperty());
         background.heightProperty().bind(view.heightProperty());
         view.disabledProperty().addListener((o, ov, nv) -> {
-            Color strokeColor = nv ? LIGHTGRAY : (view.isSelected() ? RED : BLACK);
+            Paint strokeColor = nv ? view.getDisabledStroke() : (view.isSelected() ? view.getSelectedStroke() :
+                    view.getUnSelectedStroke());
             background.setStroke(strokeColor);
         });
         view.selectedProperty().addListener((o, ov, nv) -> {
-            Color strokeColor = nv ? RED : (view.isDisabled() ? LIGHTGRAY : BLACK);
+            Paint strokeColor = nv ? view.getSelectedStroke() : (view.isDisabled() ? view.getDisabledStroke()
+                    : view.getUnSelectedStroke());
             background.setStroke(strokeColor);
         });
         label.strokeProperty().bind(view.strokeProperty());
-        background.setStroke(view.isDisabled() ? LIGHTGRAY : (view.isSelected() ? RED : BLACK));
+        background.setStroke(view.isDisabled() ? view.getDisabledStroke() : (view.isSelected() ?
+                view.getSelectedStroke() : view.getUnSelectedStroke()));
         background.strokeWidthProperty().bind(when(view.selectedProperty()).then(2).otherwise(1));
         stackPane.disableProperty().bind(view.disabledProperty());
 
