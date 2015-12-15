@@ -1,7 +1,5 @@
 package com.alphasystem.arabic.ui.skin;
 
-import com.alphasystem.arabic.model.ArabicSupport;
-import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
@@ -29,10 +27,7 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
         label.setFont(view.getFont());
         label.fontProperty().bind(view.fontProperty());
         label.setOnMouseClicked(event -> makeSelection(view));
-        view.labelProperty().addListener((o, oV, nV) -> {
-            label.setText(getLabelText(nV));
-        });
-        label.setText(getLabelText(view.getLabel()));
+        label.textProperty().bind(view.textProperty());
         label.setStroke(view.getStroke());
         label.setTextAlignment(RIGHT);
 
@@ -63,15 +58,6 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
 
         stackPane.getChildren().addAll(background, label);
         getChildren().add(stackPane);
-    }
-
-    private static String getLabelText(ArabicSupport value) {
-        String text = "";
-        if (value != null) {
-            ArabicWord arabicWord = value.getLabel();
-            text = arabicWord == null ? "" : arabicWord.toUnicode();
-        }
-        return text;
     }
 
     private void makeSelection(ArabicLabelView view) {
