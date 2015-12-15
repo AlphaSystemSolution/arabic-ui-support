@@ -3,13 +3,11 @@ package com.alphasystem.arabic.ui.skin;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.ArabicLabelView;
-import javafx.geometry.Pos;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 import static javafx.beans.binding.Bindings.when;
 import static javafx.scene.paint.Color.TRANSPARENT;
