@@ -8,7 +8,7 @@ import javafx.scene.control.Skin;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
-import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_COLOR;
+import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_STROKE;
 import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_FONT;
 import static javafx.scene.paint.Color.*;
 
@@ -23,7 +23,7 @@ public class ArabicLabelView extends Control {
     private final ReadOnlyBooleanWrapper selected = new ReadOnlyBooleanWrapper(false, "selected");
     private final BooleanProperty select = new SimpleBooleanProperty();
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(DEFAULT_FONT, "font");
-    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(DEFAULT_COLOR, "stroke");
+    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(DEFAULT_STROKE, "stroke");
     private final ObjectProperty<Paint> unSelectedStroke = new SimpleObjectProperty<>(BLACK, "unSelectedStroke");
     private final ObjectProperty<Paint> selectedStroke = new SimpleObjectProperty<>(RED, "unSelectedStroke");
     private final ObjectProperty<Paint> disabledStroke = new SimpleObjectProperty<>(LIGHTGRAY, "unSelectedStroke");
@@ -45,7 +45,7 @@ public class ArabicLabelView extends Control {
         setWidth(DEFAULT_WIDTH);
         setHeight(DEFAULT_HEIGHT);
         setFont(DEFAULT_FONT);
-        setStroke(DEFAULT_COLOR);
+        setStroke(DEFAULT_STROKE);
         setUnSelectedStroke(BLACK);
         setSelectedStroke(RED);
         setDisabledStroke(LIGHTGRAY);
@@ -118,7 +118,7 @@ public class ArabicLabelView extends Control {
     }
 
     public final void setStroke(Paint stroke) {
-        this.stroke.set((stroke == null) ? DEFAULT_COLOR : stroke);
+        this.stroke.set((stroke == null) ? DEFAULT_STROKE : stroke);
     }
 
     public final Paint getUnSelectedStroke() {

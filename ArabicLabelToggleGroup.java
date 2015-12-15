@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import java.util.List;
 
 import static javafx.collections.FXCollections.observableArrayList;
+import static javafx.scene.paint.Color.TRANSPARENT;
 import static javafx.scene.text.FontPosture.REGULAR;
 import static javafx.scene.text.FontWeight.BLACK;
 import static org.apache.commons.lang3.ArrayUtils.contains;
@@ -23,12 +24,12 @@ import static org.apache.commons.lang3.ArrayUtils.contains;
 public class ArabicLabelToggleGroup {
 
     public static final Font DEFAULT_FONT = Font.font("Arabic Typesetting", BLACK, REGULAR, 36.0);
-    public static final Color DEFAULT_COLOR = Color.BLACK;
+    public static final Color DEFAULT_STROKE = TRANSPARENT;
 
     private final DoubleProperty width = new SimpleDoubleProperty(0, "width");
     private final DoubleProperty height = new SimpleDoubleProperty(0, "width");
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(null, "font");
-    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(DEFAULT_COLOR, "stroke");
+    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(DEFAULT_STROKE, "stroke");
     private final BooleanProperty disable = new SimpleBooleanProperty(false, "disable");
     private final BooleanProperty multipleSelect = new SimpleBooleanProperty(true, "multipleSelect");
     private final ObjectProperty<ArabicLabelView> selectedLabel = new SimpleObjectProperty<>(null, "selectedLabel");
