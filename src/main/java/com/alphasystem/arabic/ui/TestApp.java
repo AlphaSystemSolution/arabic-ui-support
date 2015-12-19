@@ -1,6 +1,7 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -28,9 +29,7 @@ public class TestApp extends Application {
         primaryStage.setHeight(bounds.getHeight());
 
         RootLettersPicker pane = new RootLettersPicker();
-        pane.setFirstRadical(ArabicLetterType.NOON);
-        pane.setSecondRadical(ArabicLetterType.SAD);
-        pane.setThirdRadical(ArabicLetterType.RA);
+        pane.setRootLetters(new RootLetters(ArabicLetterType.NOON, ArabicLetterType.SAD, ArabicLetterType.RA));
         Scene scene = new Scene(pane);
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);

@@ -17,9 +17,15 @@
             <artifactId>arabic-support</artifactId>
             <version>${arabic-support.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.alphasystem.arabic</groupId>
+            <artifactId>morphological-analysis-model</artifactId>
+            <version>${morphological-analysis-model.version}</version>
+        </dependency>
     </dependencies>
     <properties>
         <maven.test.skip>true</maven.test.skip>
         <arabic-support.version>${project.version}</arabic-support.version>
+        <morphological-analysis-model.version>${project.version}</morphological-analysis-model.version>
     </properties>
 </project>

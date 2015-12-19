@@ -5,6 +5,7 @@ import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.ArabicLabelView;
 import com.alphasystem.arabic.ui.RootLettersPicker;
 import com.alphasystem.arabic.ui.RootLettersPickerKeyBoard;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.SkinBase;
@@ -14,7 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
 
-import static com.alphasystem.arabic.model.ArabicLetters.WORD_SPACE;
+import static com.alphasystem.arabic.model.ArabicLetters.WORD_TATWEEL;
 import static com.alphasystem.arabic.model.ArabicWord.concatenate;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
@@ -42,9 +43,18 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
         keyboardPopup.setHideOnEscape(true);
         keyboardPopup.getContent().add(keyBoard);
         keyboardPopup.setOnHiding(event -> {
-            ArabicLetterType[] rootLetters = keyBoard.getRootLetters();
+            ArabicLetterType[] rootLettersArray = keyBoard.getRootLetters();
             final RootLettersPicker skinnable = getSkinnable();
-            skinnable.setRootLetters(rootLetters[0], rootLetters[1], rootLetters[2], rootLetters[3]);
+            RootLetters rootLetters = skinnable.getRootLetters();
+            if (rootLetters == null) {
+                rootLetters = new RootLetters();
+            }
+            rootLetters.setFirstRadical(rootLettersArray[0]);
+            rootLetters.setSecondRadical(rootLettersArray[1]);
+            rootLetters.setThirdRadical(rootLettersArray[2]);
+            rootLetters.setFourthRadical(rootLettersArray[3]);
+            skinnable.setRootLetters(null);
+            skinnable.setRootLetters(rootLetters);
         });
 
         ArabicLabelView label = new ArabicLabelView();
@@ -67,36 +77,29 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
 
     private void updateView(RootLettersPickerKeyBoard keyBoard, ArabicLabelView label) {
         final RootLettersPicker skinnable = getSkinnable();
-        updateLabel(keyBoard, label, skinnable.getFirstRadical(), skinnable.getSecondRadical(),
-                skinnable.getThirdRadical(), skinnable.getFourthRadical());
-        skinnable.firstRadicalProperty().addListener((o, ov, nv) -> {
-            updateLabel(keyBoard, label, nv, skinnable.getSecondRadical(), skinnable.getThirdRadical(),
-                    skinnable.getFourthRadical());
-        });
-        skinnable.secondRadicalProperty().addListener((o, ov, nv) -> {
-            updateLabel(keyBoard, label, skinnable.getFirstRadical(), nv, skinnable.getThirdRadical(),
-                    skinnable.getFourthRadical());
-        });
-        skinnable.thirdRadicalProperty().addListener((o, ov, nv) -> {
-            updateLabel(keyBoard, label, skinnable.getFirstRadical(), skinnable.getSecondRadical(), nv,
-                    skinnable.getFourthRadical());
-        });
-        skinnable.fourthRadicalProperty().addListener((o, ov, nv) -> {
-            updateLabel(keyBoard, label, skinnable.getFirstRadical(), skinnable.getSecondRadical(),
-                    skinnable.getThirdRadical(), nv);
+        updateLabel(keyBoard, label, skinnable.getRootLetters());
+        skinnable.rootLettersProperty().addListener((o, ov, nv) -> {
+            updateLabel(keyBoard, label, nv);
         });
     }
 
-    private void updateLabel(RootLettersPickerKeyBoard keyBoard, ArabicLabelView label, ArabicLetterType firstRadical,
-                             ArabicLetterType secondRadical, ArabicLetterType thirdRadical, ArabicLetterType fourthRadical) {
-        keyBoard.setRootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical);
+    private void updateLabel(RootLettersPickerKeyBoard keyBoard, ArabicLabelView label, RootLetters rootLetters) {
+        if (rootLetters != null) {
+            ArabicLetterType firstRadical = rootLetters.getFirstRadical();
+            ArabicLetterType secondRadical = rootLetters.getSecondRadical();
+            ArabicLetterType thirdRadical = rootLetters.getThirdRadical();
+            ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
+            keyBoard.setRootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical);
 
-        ArabicWord word = new ArabicWord();
-        word = (firstRadical == null) ? word : getWord(firstRadical);
-        word = (secondRadical == null) ? word : concatenate(word, WORD_SPACE, getWord(secondRadical));
-        word = (thirdRadical == null) ? word : concatenate(word, WORD_SPACE, getWord(thirdRadical));
-        word = (fourthRadical == null) ? word : concatenate(word, WORD_SPACE, getWord(fourthRadical));
-        label.setLabel(word);
+            ArabicWord word = new ArabicWord();
+            word = (firstRadical == null) ? word : getWord(firstRadical);
+            word = (secondRadical == null) ? word : concatenate(word, WORD_TATWEEL, getWord(secondRadical));
+            word = (thirdRadical == null) ? word : concatenate(word, WORD_TATWEEL, getWord(thirdRadical));
+            word = (fourthRadical == null) ? word : concatenate(word, WORD_TATWEEL, getWord(fourthRadical));
+            label.setLabel(word);
+        }
+
+
     }
 
     private void showPopup(Popup popup, Button button) {
