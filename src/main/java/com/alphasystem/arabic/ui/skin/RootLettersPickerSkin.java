@@ -70,7 +70,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
         pickerButton.setOnAction(event -> showPopup(keyboardPopup, pickerButton));
 
         gridPane.add(label, 0, 0);
-        gridPane.add(pickerButton, 1, 0);
+        gridPane.add(pickerButton, 3, 0);
 
         getChildren().add(gridPane);
     }
