@@ -14,9 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 
-import static com.alphasystem.arabic.model.ArabicLetters.WORD_TATWEEL;
-import static com.alphasystem.arabic.model.ArabicWord.concatenate;
-import static com.alphasystem.arabic.model.ArabicWord.getWord;
+import static com.alphasystem.arabic.model.ArabicWord.*;
 import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_26;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
 
@@ -93,14 +91,13 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
 
             ArabicWord word = new ArabicWord();
             word = (firstRadical == null) ? word : getWord(firstRadical);
-            word = (secondRadical == null) ? word : concatenate(word, WORD_TATWEEL, getWord(secondRadical));
-            word = (thirdRadical == null) ? word : concatenate(word, WORD_TATWEEL, getWord(thirdRadical));
-            word = (fourthRadical == null) ? word : concatenate(word, WORD_TATWEEL, getWord(fourthRadical));
+            word = (secondRadical == null) ? word : concatenate(appendTatweel(word), getWord(secondRadical));
+            word = (thirdRadical == null) ? word : concatenate(appendTatweel(word), getWord(thirdRadical));
+            word = (fourthRadical == null) ? word : concatenate(appendTatweel(word), getWord(fourthRadical));
             label.setLabel(word);
         }
-
-
     }
+
 
     private void showPopup(Popup popup, Button button) {
         if (popup.isShowing()) {
