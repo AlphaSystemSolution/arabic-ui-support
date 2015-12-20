@@ -4,9 +4,8 @@ import com.alphasystem.arabic.model.ArabicSupport;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
-import static com.alphasystem.app.sarfengine.ui.Global.ARABIC_FONT_30;
-import static com.alphasystem.app.sarfengine.ui.Global.roundTo100;
 import static com.alphasystem.util.AppUtil.getResource;
 import static javafx.collections.FXCollections.observableArrayList;
 import static org.apache.commons.lang3.ArrayUtils.*;
@@ -65,10 +64,14 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
         getStyleClass().addAll("popup");
     }
 
+    public static double roundTo100(double srcValue) {
+        return (double) ((((int) srcValue) + 99) / 100) * 100;
+    }
+
     protected void initToggleGroup() {
         toggleGroup.setWidth(64);
         toggleGroup.setHeight(48);
-        toggleGroup.setFont(ARABIC_FONT_30);
+        toggleGroup.setFont(Font.font("Arabic Typesetting", 30));
     }
 
     @Override
