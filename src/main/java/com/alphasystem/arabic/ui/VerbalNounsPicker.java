@@ -22,4 +22,5 @@ public class VerbalNounsPicker extends MultiValuedLabelPicker<VerbalNoun> {
     public String getImageName() {
         return "images.verbal-noun-icon.png";
     }
+
 }

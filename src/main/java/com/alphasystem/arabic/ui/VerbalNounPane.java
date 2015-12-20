@@ -11,6 +11,14 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Ver
 public class VerbalNounPane extends ArabicSupportGroupPane<VerbalNoun> {
 
     public VerbalNounPane() {
-        super(values());
+        this(values());
+    }
+
+    protected VerbalNounPane(int numOfColumns, VerbalNoun[] srcValues) {
+        super(numOfColumns, srcValues);
+    }
+
+    protected VerbalNounPane(VerbalNoun[] srcValues) {
+        this(DEFAULT_NUM_OF_COLUMNS, srcValues);
     }
 }

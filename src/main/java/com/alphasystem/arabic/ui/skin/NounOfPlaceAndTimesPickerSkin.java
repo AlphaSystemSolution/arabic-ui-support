@@ -10,6 +10,14 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlac
 public class NounOfPlaceAndTimesPickerSkin extends MultiValuedLabelPickerSkin<NounOfPlaceAndTime> {
 
     public NounOfPlaceAndTimesPickerSkin(NounOfPlaceTimesPicker control) {
-        super(control, new AdverbPane());
+        super(control, new AdverbPane(), new NounOfPlaceAndTimesPickerViewer());
+    }
+
+    private static class NounOfPlaceAndTimesPickerViewer extends SelectedValuesView<NounOfPlaceAndTime> {
+
+        public NounOfPlaceAndTimesPickerViewer() {
+            super();
+        }
+
     }
 }

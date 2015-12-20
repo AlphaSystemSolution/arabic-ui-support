@@ -10,7 +10,17 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Nou
  */
 public class AdverbPane extends ArabicSupportGroupPane<NounOfPlaceAndTime> {
 
+    protected static final int NUM_OF_COLUMNS = 6;
+
     public AdverbPane() {
-        super(6, values());
+        this(values());
+    }
+
+    protected AdverbPane(NounOfPlaceAndTime[] srcValues) {
+        this(NUM_OF_COLUMNS, srcValues);
+    }
+
+    protected AdverbPane(int numOfColumns, NounOfPlaceAndTime[] srcValues) {
+        super(numOfColumns, srcValues);
     }
 }

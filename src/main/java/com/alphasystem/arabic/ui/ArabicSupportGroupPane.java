@@ -1,9 +1,12 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.model.ArabicSupport;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_30;
 import static com.alphasystem.util.AppUtil.getResource;
@@ -15,27 +18,66 @@ import static org.apache.commons.lang3.ArrayUtils.*;
  */
 public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VBox {
 
-    private static final int NUM_OF_COLUMNS = 8;
+    protected static final int DEFAULT_NUM_OF_COLUMNS = 8;
     private static final double SPACING = 10.0;
 
     protected final ArabicLabelToggleGroup toggleGroup = new ArabicLabelToggleGroup();
+    protected final ObservableList<T> values = observableArrayList();
+    protected final int numOfColumns;
 
     protected ArabicSupportGroupPane(T[] srcValues) {
-        this(NUM_OF_COLUMNS, srcValues);
+        this(DEFAULT_NUM_OF_COLUMNS, srcValues);
     }
 
+    @SuppressWarnings({"unchecked"})
     protected ArabicSupportGroupPane(int numOfColumns, T[] srcValues) {
         initToggleGroup();
 
-        numOfColumns = (numOfColumns <= 0) ? NUM_OF_COLUMNS : numOfColumns;
+        this.numOfColumns = (numOfColumns <= 0) ? DEFAULT_NUM_OF_COLUMNS : numOfColumns;
+        setSpacing(SPACING);
+        initialize(srcValues);
+        setMinWidth(USE_PREF_SIZE);
+        setMaxWidth(USE_PREF_SIZE);
+        setPrefWidth(getComputedWidth() + 120);
 
+        if (srcValues != null) {
+            values.addAll(srcValues);
+        }
+        values.addListener((ListChangeListener<? super T>) c -> {
+            while (c.next()) {
+                getChildren().clear();
+                if (c.getAddedSize() > 0) {
+                    List<T> addedSubList = (List<T>) c.getAddedSubList();
+                    initialize(addedSubList.toArray((T[]) new ArabicSupport[addedSubList.size()]));
+                }
+            }
+        });
+
+        getStyleClass().addAll("popup");
+    }
+
+    public static double roundTo100(double srcValue) {
+        return (double) ((((int) srcValue) + 99) / 100) * 100;
+    }
+
+    protected double getComputedWidth() {
+        double width = toggleGroup.getWidth();
+        return roundTo100((width + SPACING) * numOfColumns);
+    }
+
+    public final ObservableList<T> getValues() {
+        return values;
+    }
+
+    protected void initialize(T[] srcValues) {
+        if (srcValues == null) {
+            return;
+        }
         ArabicSupport[] values = new ArabicSupport[0];
         values = addAll(values, srcValues);
         while (values.length % numOfColumns != 0) {
             values = add(values, null);
         }
-
-        setSpacing(SPACING);
 
         int startIndex = 0;
         int endIndex = numOfColumns;
@@ -55,17 +97,6 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
             startIndex = endIndex;
             endIndex += numOfColumns;
         }
-        setMinWidth(USE_PREF_SIZE);
-        setMaxWidth(USE_PREF_SIZE);
-        double width = toggleGroup.getWidth();
-        double prefWidth = (width + SPACING) * numOfColumns;
-        setPrefWidth(roundTo100(prefWidth) + 120);
-
-        getStyleClass().addAll("popup");
-    }
-
-    public static double roundTo100(double srcValue) {
-        return (double) ((((int) srcValue) + 99) / 100) * 100;
     }
 
     protected void initToggleGroup() {

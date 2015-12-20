@@ -10,6 +10,14 @@ import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun
 public class VerbalNounsPickerSkin extends MultiValuedLabelPickerSkin<VerbalNoun> {
 
     public VerbalNounsPickerSkin(VerbalNounsPicker control) {
-        super(control, new VerbalNounPane());
+        super(control, new VerbalNounPane(), new VerbalNounsPickerViewer());
+    }
+
+    private static class VerbalNounsPickerViewer extends SelectedValuesView<VerbalNoun> {
+
+        public VerbalNounsPickerViewer() {
+            super();
+        }
+
     }
 }
