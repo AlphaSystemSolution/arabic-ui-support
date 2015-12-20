@@ -19,7 +19,7 @@ import java.util.List;
 
 import static com.alphasystem.arabic.model.ArabicWord.addTatweel;
 import static com.alphasystem.arabic.model.ArabicWord.concatenateWithAnd;
-import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_26;
+import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_24;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
 
 /**
@@ -36,12 +36,12 @@ public class MultiValuedLabelPickerSkin<T extends ArabicSupport> extends SkinBas
     }
 
     private void initializeSkin() {
-        final MultiValuedLabelPicker<T> skinnable = getSkinnable();
+        final MultiValuedLabelPicker<T> control = getSkinnable();
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(1);
-        gridPane.setAlignment(skinnable.getAlignment());
-        gridPane.alignmentProperty().bind(skinnable.alignmentProperty());
+        gridPane.setAlignment(control.getAlignment());
+        gridPane.alignmentProperty().bind(control.alignmentProperty());
 
         Popup pickerPopup = new Popup();
         pickerPopup.setAutoHide(true);
@@ -50,7 +50,6 @@ public class MultiValuedLabelPickerSkin<T extends ArabicSupport> extends SkinBas
         pickerPopup.setOnHiding(event -> {
             // do something on hiding
             ObservableList<T> selectedValues = pickerPane.getSelectedValues();
-            MultiValuedLabelPicker<T> control = skinnable;
             control.getValues().clear();
             control.getValues().addAll(selectedValues);
         });
@@ -58,13 +57,13 @@ public class MultiValuedLabelPickerSkin<T extends ArabicSupport> extends SkinBas
         ArabicLabelView label = new ArabicLabelView();
         label.setDisable(true);
         label.setWidth(200);
-        label.setHeight(40);
-        label.setFont(ARABIC_FONT_26);
+        label.setHeight(32);
+        label.setFont(ARABIC_FONT_24);
 
         updateView(label);
 
         Button pickerButton = new Button();
-        pickerButton.setGraphic(new ImageView(new Image(getResourceAsStream(skinnable.getImageName()))));
+        pickerButton.setGraphic(new ImageView(new Image(getResourceAsStream(control.getImageName()))));
         pickerButton.setOnAction(event -> showPopup(pickerPopup, pickerButton));
 
         gridPane.add(label, 0, 0);
