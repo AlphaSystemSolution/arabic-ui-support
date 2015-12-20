@@ -8,10 +8,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import static com.alphasystem.arabic.model.ArabicLetterType.*;
+import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_24;
 import static javafx.geometry.NodeOrientation.RIGHT_TO_LEFT;
 
 /**
@@ -26,7 +26,6 @@ public class RootLettersPickerKeyBoard extends VBox {
     private static final ArabicLetterType[] ROW_2 = {SHEEN, SEEN, YA, BA, LAM, ALIF, TA, NOON, MEEM, KAF, TTA, null, null};
     private static final ArabicLetterType[] ROW_3 = {YA_HAMZA_ABOVE, HAMZA, WAW_HAMZA_ABOVE, RA, ALIF_MAKSURA,
             TA_MARBUTA, WAW, ZAIN, DTHA, null, null, null, null};
-    private static final Font FONT = Font.font("Arabic Typesetting", 24);
 
     private final ArabicLabelToggleGroup group;
     private final ArabicLabelView[] labels = new ArabicLabelView[4];
@@ -47,7 +46,7 @@ public class RootLettersPickerKeyBoard extends VBox {
         group.setMultipleSelect(false);
         group.setWidth(32);
         group.setHeight(32);
-        group.setFont(FONT);
+        group.setFont(ARABIC_FONT_24);
 
         setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         setSpacing(SPACING);
@@ -165,7 +164,7 @@ public class RootLettersPickerKeyBoard extends VBox {
         Text graphic = null;
         if (!disable) {
             graphic = new Text(letter.toUnicode());
-            graphic.setFont(FONT);
+            graphic.setFont(ARABIC_FONT_24);
         }
         button.setGraphic(graphic);
         button.setOnAction(event -> {
