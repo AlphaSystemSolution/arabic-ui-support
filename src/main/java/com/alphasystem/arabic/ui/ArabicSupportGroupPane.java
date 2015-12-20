@@ -76,7 +76,7 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
 
     @Override
     public String getUserAgentStylesheet() {
-        return getResource("sarf-engine-ui.css").toExternalForm();
+        return getResource("arabic-ui-support.css").toExternalForm();
     }
 
     @SuppressWarnings({"unchecked"})
