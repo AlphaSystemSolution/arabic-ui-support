@@ -59,7 +59,7 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
         setMaxWidth(USE_PREF_SIZE);
         double width = toggleGroup.getWidth();
         double prefWidth = (width + SPACING) * numOfColumns;
-        setPrefWidth(roundTo100(prefWidth) + 20);
+        setPrefWidth(roundTo100(prefWidth) + 120);
 
         getStyleClass().addAll("popup");
     }
@@ -93,7 +93,9 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
      * @param selectedValues values to be reset in toggle group
      */
     public final void setSelectedValues(ObservableList<T> selectedValues) {
-        toggleGroup.reset(selectedValues.toArray(new ArabicSupport[selectedValues.size()]));
+        int len = (selectedValues == null) ? 0 : selectedValues.size();
+        ArabicSupport[] values = (len <= 0) ? null : selectedValues.toArray(new ArabicSupport[len]);
+        toggleGroup.reset(values);
     }
 
 }
