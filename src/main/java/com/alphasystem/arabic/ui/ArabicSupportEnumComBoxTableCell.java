@@ -9,10 +9,10 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import static com.alphasystem.arabic.ui.ArabicSupportEnumListCell.ARABIC_FONT_SMALL;
-import static com.alphasystem.arabic.ui.ArabicSupportEnumListCell.ENGLISH_FONT_SMALL;
 import static com.alphasystem.arabic.ui.ComboBoxHelper.createComboBox;
 import static com.alphasystem.arabic.ui.ListType.*;
+import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_20;
+import static com.alphasystem.arabic.ui.util.FontConstants.ENGLISH_FONT_14;
 import static java.lang.String.format;
 import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 
@@ -35,9 +35,9 @@ public class ArabicSupportEnumComBoxTableCell<S, T extends ArabicSupportEnum> ex
         setContentDisplay(GRAPHIC_ONLY);
         this.type = type;
         labelText = new Text();
-        labelText.setFont(ENGLISH_FONT_SMALL);
+        labelText.setFont(ENGLISH_FONT_14);
         arabicText = new Text();
-        arabicText.setFont(ARABIC_FONT_SMALL);
+        arabicText.setFont(ARABIC_FONT_20);
         comboBox = createComboBox(values);
         comboBox.editableProperty().bind(column.editableProperty());
         comboBox.disableProperty().bind(column.editableProperty().not());

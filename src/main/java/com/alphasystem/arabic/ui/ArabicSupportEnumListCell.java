@@ -4,24 +4,20 @@ import com.alphasystem.arabic.model.ArabicSupportEnum;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import static com.alphasystem.arabic.ui.ListType.CODE_ONLY;
 import static com.alphasystem.arabic.ui.ListType.LABEL_ONLY;
+import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_24;
+import static com.alphasystem.arabic.ui.util.FontConstants.ENGLISH_FONT_14;
 import static java.lang.String.format;
 import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
-import static javafx.scene.text.Font.font;
-import static javafx.scene.text.FontPosture.REGULAR;
 
 /**
  * @author sali
  */
 public class ArabicSupportEnumListCell<T extends ArabicSupportEnum> extends ListCell<T> {
-
-    public static final Font ENGLISH_FONT_SMALL = font("Candara", REGULAR, 14);
-    public static final Font ARABIC_FONT_SMALL = font("Arabic Typesetting", REGULAR, 24);
 
     private final Text codeText;
     private final Text arabicText;
@@ -31,9 +27,9 @@ public class ArabicSupportEnumListCell<T extends ArabicSupportEnum> extends List
         this.type = type;
         setContentDisplay(GRAPHIC_ONLY);
         codeText = new Text();
-        codeText.setFont(ENGLISH_FONT_SMALL);
+        codeText.setFont(ENGLISH_FONT_14);
         arabicText = new Text();
-        arabicText.setFont(ARABIC_FONT_SMALL);
+        arabicText.setFont(ARABIC_FONT_24);
     }
 
     @Override

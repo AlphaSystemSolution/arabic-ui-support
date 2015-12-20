@@ -12,12 +12,12 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import javafx.stage.Popup;
 
 import static com.alphasystem.arabic.model.ArabicLetters.WORD_TATWEEL;
 import static com.alphasystem.arabic.model.ArabicWord.concatenate;
 import static com.alphasystem.arabic.model.ArabicWord.getWord;
+import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_26;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
 
 /**
@@ -61,7 +61,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
         label.setDisable(true);
         label.setWidth(160);
         label.setHeight(32);
-        label.setFont(Font.font("Arabic Typesetting", 26));
+        label.setFont(ARABIC_FONT_26);
 
         updateView(keyBoard, label);
 
