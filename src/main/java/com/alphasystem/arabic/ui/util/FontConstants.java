@@ -4,9 +4,9 @@ import javafx.scene.text.Font;
 
 import static java.lang.System.getProperty;
 import static javafx.scene.text.Font.font;
+import static javafx.scene.text.FontPosture.ITALIC;
 import static javafx.scene.text.FontPosture.REGULAR;
 import static javafx.scene.text.FontWeight.BLACK;
-import static javafx.scene.text.FontWeight.NORMAL;
 
 /**
  * @author sali
@@ -28,6 +28,7 @@ public interface FontConstants {
     Font ARABIC_FONT_14 = font(ARABIC_FONT_NAME, BLACK, REGULAR, 14);
 
     // English Fonts
-    Font ENGLISH_FONT_14 = font(ENGLISH_FONT_NAME, NORMAL, REGULAR, 14);
-    Font ENGLISH_FONT_12 = font(ENGLISH_FONT_NAME, NORMAL, REGULAR, 12);
+    Font ENGLISH_FONT_14 = font(ENGLISH_FONT_NAME, BLACK, REGULAR, 14);
+    Font ENGLISH_FONT_12 = font(ENGLISH_FONT_NAME, BLACK, REGULAR, 12);
+    Font ENGLISH_FONT_ITALIC_12 = font(ENGLISH_FONT_NAME, BLACK, ITALIC, 12);
 }
