@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import static javafx.beans.binding.Bindings.when;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import static javafx.scene.paint.Color.TRANSPARENT;
 import static javafx.scene.text.TextAlignment.RIGHT;
 
@@ -22,6 +23,9 @@ public class ArabicLabelViewSkin extends SkinBase<ArabicLabelView> {
         StackPane stackPane = new StackPane();
         stackPane.setAlignment(view.getAlignment());
         stackPane.setFocusTraversable(true);
+        stackPane.setPrefSize(view.getWidth(), view.getHeight());
+        stackPane.setMinSize(USE_PREF_SIZE, USE_PREF_SIZE);
+        stackPane.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
 
         final Text label = new Text();
         label.setFont(view.getFont());

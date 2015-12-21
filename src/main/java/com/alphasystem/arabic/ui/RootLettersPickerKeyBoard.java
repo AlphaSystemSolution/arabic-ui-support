@@ -26,7 +26,7 @@ public class RootLettersPickerKeyBoard extends VBox {
     private static final ArabicLetterType[] ROW_1 = {DDAD, SAD, THA, QAF, FA, GHAIN, AIN, HHA, KHA, HA, JEEM, DAL, THAL};
     private static final ArabicLetterType[] ROW_2 = {SHEEN, SEEN, YA, BA, LAM, ALIF, TA, NOON, MEEM, KAF, TTA, null, null};
     private static final ArabicLetterType[] ROW_3 = {YA_HAMZA_ABOVE, HAMZA, WAW_HAMZA_ABOVE, RA, ALIF_MAKSURA,
-            TA_MARBUTA, WAW, ZAIN, DTHA, null, null, null, null};
+            TA_MARBUTA, WAW, ZAIN, DTHA, null, null};
 
     private final ArabicLabelToggleGroup group;
     private final ArabicLabelView[] labels = new ArabicLabelView[4];
@@ -76,13 +76,31 @@ public class RootLettersPickerKeyBoard extends VBox {
         flowPane.getChildren().addAll(labels[0], labels[1], labels[2], labels[3]);
         flowPane.setAlignment(Pos.TOP_CENTER);
 
-        getChildren().addAll(flowPane, createRow(ROW_1), createRow(ROW_2), createRow(ROW_3));
+        FlowPane row3 = createRow(ROW_3);
+        row3.getChildren().add(createClearButton());
+        getChildren().addAll(flowPane, createRow(ROW_1), createRow(ROW_2), row3);
         setFocusTraversable(true);
 
         initializeListeners();
 
         setRootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical);
         getStyleClass().addAll("popup");
+    }
+
+    private Button createClearButton() {
+        Button clearButton = new Button("    Clear   ");
+        clearButton.setStyle("-fx-base: beige;");
+        clearButton.setPrefSize(PREF_WIDTH * 2 + SPACING, PREF_HEIGHT);
+        clearButton.setMinSize(USE_PREF_SIZE, USE_PREF_SIZE);
+        clearButton.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
+        clearButton.setOnAction(event -> {
+            labels[0].setLabel(null);
+            labels[1].setLabel(null);
+            labels[2].setLabel(null);
+            labels[3].setLabel(null);
+            selectFirst();
+        });
+        return clearButton;
     }
 
     @Override
