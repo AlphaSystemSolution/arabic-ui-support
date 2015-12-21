@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
+import java.util.Collection;
 import java.util.List;
 
 import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_30;
@@ -123,7 +124,7 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
      *
      * @param selectedValues values to be reset in toggle group
      */
-    public final void setSelectedValues(ObservableList<T> selectedValues) {
+    public final void setSelectedValues(Collection<T> selectedValues) {
         int len = (selectedValues == null) ? 0 : selectedValues.size();
         ArabicSupport[] values = (len <= 0) ? null : selectedValues.toArray(new ArabicSupport[len]);
         toggleGroup.reset(values);
