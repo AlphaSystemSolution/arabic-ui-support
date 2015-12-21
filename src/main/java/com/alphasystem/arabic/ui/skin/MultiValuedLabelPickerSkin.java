@@ -3,6 +3,7 @@ package com.alphasystem.arabic.ui.skin;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.ui.ArabicSupportGroupPane;
 import com.alphasystem.arabic.ui.MultiValuedLabelPicker;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
@@ -11,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
+
+import java.util.Collection;
 
 import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_24;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
@@ -24,6 +27,7 @@ public class MultiValuedLabelPickerSkin<T extends ArabicSupport> extends SkinBas
     private final ArabicSupportGroupPane<T> viewPane;
     private final GridPane labelsGridPane = new GridPane();
 
+    @SuppressWarnings({"unchecked"})
     protected MultiValuedLabelPickerSkin(MultiValuedLabelPicker<T> control, ArabicSupportGroupPane<T> pickerPane,
                                          ArabicSupportGroupPane<T> viewPane) {
         super(control);
@@ -32,6 +36,17 @@ public class MultiValuedLabelPickerSkin<T extends ArabicSupport> extends SkinBas
         this.viewPane.getValues().clear();
         this.viewPane.getValues().addAll(getSkinnable().getValues());
         initializeSkin();
+        getSkinnable().getValues().addListener((ListChangeListener<? super T>) c -> {
+            while (c.next()) {
+                this.viewPane.getValues().clear();
+                this.pickerPane.setSelectedValues(null);
+                if (c.getAddedSize() > 0) {
+                    Collection<T> addedSubList = (Collection<T>) c.getAddedSubList();
+                    this.viewPane.getValues().addAll(addedSubList);
+                    this.pickerPane.setSelectedValues(addedSubList);
+                }
+            }
+        });
     }
 
     private void initializeSkin() {
