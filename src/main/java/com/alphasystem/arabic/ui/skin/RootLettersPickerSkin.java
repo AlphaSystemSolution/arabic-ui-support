@@ -82,20 +82,21 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
     }
 
     private void updateLabel(RootLettersPickerKeyBoard keyBoard, ArabicLabelView label, RootLetters rootLetters) {
-        if (rootLetters != null) {
-            ArabicLetterType firstRadical = rootLetters.getFirstRadical();
-            ArabicLetterType secondRadical = rootLetters.getSecondRadical();
-            ArabicLetterType thirdRadical = rootLetters.getThirdRadical();
-            ArabicLetterType fourthRadical = rootLetters.getFourthRadical();
-            keyBoard.setRootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical);
+        keyBoard.setRootLetters(null, null, null, null);
 
-            ArabicWord word = new ArabicWord();
-            word = (firstRadical == null) ? word : getWord(firstRadical);
-            word = (secondRadical == null) ? word : concatenate(appendTatweel(word), getWord(secondRadical));
-            word = (thirdRadical == null) ? word : concatenate(appendTatweel(word), getWord(thirdRadical));
-            word = (fourthRadical == null) ? word : concatenate(appendTatweel(word), getWord(fourthRadical));
-            label.setLabel(word);
-        }
+        ArabicLetterType firstRadical = (rootLetters == null) ? null : rootLetters.getFirstRadical();
+        ArabicLetterType secondRadical = (rootLetters == null) ? null : rootLetters.getSecondRadical();
+        ArabicLetterType thirdRadical = (rootLetters == null) ? null : rootLetters.getThirdRadical();
+        ArabicLetterType fourthRadical = (rootLetters == null) ? null : rootLetters.getFourthRadical();
+
+        keyBoard.setRootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical);
+
+        ArabicWord word = new ArabicWord();
+        word = (firstRadical == null) ? word : getWord(firstRadical);
+        word = (secondRadical == null) ? word : concatenate(appendTatweel(word), getWord(secondRadical));
+        word = (thirdRadical == null) ? word : concatenate(appendTatweel(word), getWord(thirdRadical));
+        word = (fourthRadical == null) ? word : concatenate(appendTatweel(word), getWord(fourthRadical));
+        label.setLabel(word);
     }
 
 
