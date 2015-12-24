@@ -47,6 +47,10 @@ public class TestApp extends Application {
                 NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V2, NounOfPlaceAndTime.NOUN_OF_PLACE_AND_TIME_V3);
         vBox.getChildren().add(nounOfPlaceTimesPicker);
 
+        Browser browser = new Browser();
+        browser.loadUrl("file:///C:/Users/sali/IdeaProjects/demo/table.html");
+        vBox.getChildren().add(browser);
+
         Scene scene = new Scene(vBox);
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
