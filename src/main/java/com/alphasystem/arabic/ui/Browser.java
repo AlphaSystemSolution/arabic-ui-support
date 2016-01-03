@@ -29,4 +29,7 @@ public class Browser extends BorderPane {
         webEngine.load(url);
     }
 
+    public WebEngine getWebEngine() {
+        return webEngine;
+    }
 }
