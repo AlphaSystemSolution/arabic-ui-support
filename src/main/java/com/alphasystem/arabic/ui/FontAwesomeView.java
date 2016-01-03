@@ -13,7 +13,7 @@ import de.jensd.fx.glyphs.octicons.OctIconView;
 import de.jensd.fx.glyphs.weathericons.WeatherIcon;
 import de.jensd.fx.glyphs.weathericons.WeatherIconView;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -24,6 +24,7 @@ import javafx.scene.text.TextAlignment;
 import java.lang.reflect.Constructor;
 
 import static com.alphasystem.arabic.ui.util.UiUtilities.wrapInScrollPane;
+import static java.util.Arrays.sort;
 import static javafx.geometry.Pos.CENTER;
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 import static javafx.scene.text.FontPosture.REGULAR;
@@ -36,8 +37,7 @@ public class FontAwesomeView extends BorderPane {
 
     public static final int NUM_OF_COLUMNS = 8;
     public static final int VGAP = 5;
-    public static final int HGAP = 2;
-    public static final int WIDTH = 196;
+    public static final int HGAP = 10;
 
     public FontAwesomeView() {
         TabPane tabPane = new TabPane();
@@ -57,6 +57,7 @@ public class FontAwesomeView extends BorderPane {
 
     @SuppressWarnings({"unchecked"})
     private <T extends Enum<T> & GlyphIcons, V extends GlyphIcon<T>> Node initializeIcons(T[] icons, Class<V> viewClass) {
+        sort(icons);
         GridPane gridPane = new GridPane();
         gridPane.setHgap(HGAP);
         gridPane.setVgap(VGAP);
@@ -89,6 +90,7 @@ public class FontAwesomeView extends BorderPane {
             try {
                 Constructor<V> constructor = viewClass.getConstructor(icon.getClass());
                 view = constructor.newInstance(icon);
+                view.setSize("2em");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -97,18 +99,16 @@ public class FontAwesomeView extends BorderPane {
         return view;
     }
 
-    private <T extends Enum<T> & GlyphIcons, V extends GlyphIcon<T>> Button createButton(T icon, Class<V> viewClass) {
-        Button button = new Button();
-        button.setFont(Font.font("Candara", BLACK, REGULAR, 10.0));
-        button.setTextAlignment(TextAlignment.CENTER);
-        button.setAlignment(CENTER);
-        button.setMaxWidth(WIDTH);
-        button.setMinWidth(WIDTH);
+    private <T extends Enum<T> & GlyphIcons, V extends GlyphIcon<T>> Label createButton(T icon, Class<V> viewClass) {
+        Label label = new Label();
+        label.setFont(Font.font("Candara", BLACK, REGULAR, 12.0));
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setAlignment(CENTER);
         if (icon != null) {
-            button.setGraphic(createIcon(icon, viewClass));
-            button.setText(icon.name());
+            label.setGraphic(createIcon(icon, viewClass));
+            label.setText(icon.name());
         }
-        return button;
+        return label;
     }
 
 

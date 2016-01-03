@@ -99,7 +99,6 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
         label.setLabel(word);
     }
 
-
     private void showPopup(Popup popup, Button button) {
         if (popup.isShowing()) {
             popup.hide();
