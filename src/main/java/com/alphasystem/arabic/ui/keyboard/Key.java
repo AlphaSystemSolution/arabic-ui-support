@@ -8,7 +8,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 
 import static com.alphasystem.arabic.ui.keyboard.KeyboardView.OutputType.HTML;
-import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static javafx.beans.binding.Bindings.when;
 import static javafx.geometry.NodeOrientation.RIGHT_TO_LEFT;
@@ -48,7 +47,7 @@ public class Key {
 
     private static String toHtmlCodeString(char unicode) {
         String s = format("%04x", (int) unicode);
-        return format("&#%s;", parseInt(s, 16));
+        return format("&#x%s;", s);
     }
 
     public static String getText(String text, OutputType outputType) {
