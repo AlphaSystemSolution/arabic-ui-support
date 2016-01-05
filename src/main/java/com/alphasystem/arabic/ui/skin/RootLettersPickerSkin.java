@@ -51,7 +51,11 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
             rootLetters.setSecondRadical(rootLettersArray[1]);
             rootLetters.setThirdRadical(rootLettersArray[2]);
             rootLetters.setFourthRadical(rootLettersArray[3]);
+            rootLetters.initDisplayName();
             skinnable.setRootLetters(null);
+            if (rootLetters.isEmpty()) {
+                rootLetters = null;
+            }
             skinnable.setRootLetters(rootLetters);
         });
 
