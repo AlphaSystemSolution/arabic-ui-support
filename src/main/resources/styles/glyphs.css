@@ -1,6 +1,5 @@
 .root {
     -icons-color: gray;
-/ / -fx-text-base-color;
     -top-icons-color: white;
     -base-icons-color: black;
 }
@@ -50,8 +49,3 @@
 .my-style {
     -glyph-size: 1.1em;
 }
-
-
-
-
-
