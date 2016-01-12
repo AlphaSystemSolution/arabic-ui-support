@@ -1,6 +1,5 @@
 package com.alphasystem.arabic.ui;
 
-import de.jensd.fx.glyphs.GlyphsStyle;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -28,7 +27,7 @@ public class FontAwesomeApp extends Application {
         primaryStage.setHeight(bounds.getHeight());
 
         Scene scene = new Scene(new FontAwesomeView());
-        scene.getStylesheets().addAll(GlyphsStyle.BLUE.getStylePath());
+        scene.getStylesheets().addAll("/styles/glyphs_custom.css");
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
