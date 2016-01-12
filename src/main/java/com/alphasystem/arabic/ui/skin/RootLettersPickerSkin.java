@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 
 import static com.alphasystem.arabic.model.ArabicWord.*;
-import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_26;
+import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_26;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
 
 /**

@@ -11,8 +11,8 @@ import javafx.scene.text.TextFlow;
 
 import static com.alphasystem.arabic.ui.ComboBoxHelper.createComboBox;
 import static com.alphasystem.arabic.ui.ListType.*;
-import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_20;
-import static com.alphasystem.arabic.ui.util.FontConstants.ENGLISH_FONT_14;
+import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_20;
+import static com.alphasystem.fx.ui.util.FontConstants.ENGLISH_FONT_14;
 import static java.lang.String.format;
 import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 

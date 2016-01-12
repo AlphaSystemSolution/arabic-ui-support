@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import java.util.Collection;
 import java.util.List;
 
-import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_30;
+import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_30;
 import static com.alphasystem.util.AppUtil.getResource;
 import static javafx.collections.FXCollections.observableArrayList;
 import static org.apache.commons.lang3.ArrayUtils.*;

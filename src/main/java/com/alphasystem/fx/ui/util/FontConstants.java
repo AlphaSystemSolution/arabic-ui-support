@@ -1,4 +1,4 @@
-package com.alphasystem.arabic.ui.util;
+package com.alphasystem.fx.ui.util;
 
 import javafx.scene.text.Font;
 

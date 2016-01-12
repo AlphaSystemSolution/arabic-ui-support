@@ -23,7 +23,7 @@ import javafx.scene.text.TextAlignment;
 
 import java.lang.reflect.Constructor;
 
-import static com.alphasystem.arabic.ui.util.UiUtilities.wrapInScrollPane;
+import static com.alphasystem.fx.ui.util.UiUtilities.wrapInScrollPane;
 import static java.util.Arrays.sort;
 import static javafx.geometry.Pos.CENTER;
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;

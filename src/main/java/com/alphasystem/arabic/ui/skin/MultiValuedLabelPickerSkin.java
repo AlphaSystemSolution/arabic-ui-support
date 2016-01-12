@@ -15,7 +15,7 @@ import javafx.stage.Popup;
 
 import java.util.Collection;
 
-import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_24;
+import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_24;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
 
 /**

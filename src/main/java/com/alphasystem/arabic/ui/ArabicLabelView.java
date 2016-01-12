@@ -11,7 +11,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_STROKE;
-import static com.alphasystem.arabic.ui.util.FontConstants.ARABIC_FONT_36;
+import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_36;
 import static javafx.geometry.Pos.CENTER;
 import static javafx.scene.paint.Color.*;
 
