@@ -1,14 +1,14 @@
 package com.alphasystem.fx.ui.util;
 
+import de.jensd.fx.glyphs.GlyphIcon;
 import de.jensd.fx.glyphs.GlyphIcons;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
 
-import static de.jensd.fx.glyphs.GlyphsDude.setIcon;
+import java.lang.reflect.Constructor;
+
 import static javafx.scene.Cursor.DEFAULT;
 import static javafx.scene.Cursor.WAIT;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
@@ -36,43 +36,20 @@ public final class UiUtilities {
         return scrollPane;
     }
 
-    public static <B extends ButtonBase> B populateButton(B source, String label, GlyphIcons icon, String tooltip,
-                                                          EventHandler<ActionEvent> action) {
-        populateLabeled(source, label, icon, tooltip);
-        if (action != null) {
-            source.setOnAction(action);
-        }
-        return source;
-    }
-
-    public static <B extends ButtonBase> B populateButton(B source, GlyphIcons icon, String tooltip,
-                                                          EventHandler<ActionEvent> action) {
-        return populateButton(source, null, icon, tooltip, action);
-    }
-
-    public static MenuItem populateMenuItem(MenuItem source, String label, GlyphIcons icon, EventHandler<ActionEvent> action) {
-        if (label != null) {
-            source.setText(label);
-        }
+    public static <T extends Enum<T> & GlyphIcons, V extends GlyphIcon<T>> V createIcon(T icon, String size,
+                                                                                        Class<V> viewClass) {
+        V view = null;
         if (icon != null) {
-            setIcon(source, icon);
+            try {
+                Constructor<V> constructor = viewClass.getConstructor(icon.getClass());
+                view = constructor.newInstance(icon);
+                view.setSize(size);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        if (action != null) {
-            source.setOnAction(action);
-        }
-        return source;
-    }
 
-    private static void populateLabeled(Labeled source, String label, GlyphIcons icon, String tooltip) {
-        if (label != null) {
-            source.setText(label);
-        }
-        if (tooltip != null) {
-            source.setTooltip(new Tooltip(tooltip));
-        }
-        if (icon != null) {
-            setIcon(source, icon);
-        }
+        return view;
     }
 
     private static void changeCursor(Node node, Cursor cursor) {

@@ -21,8 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-import java.lang.reflect.Constructor;
-
+import static com.alphasystem.fx.ui.util.UiUtilities.createIcon;
 import static com.alphasystem.fx.ui.util.UiUtilities.wrapInScrollPane;
 import static java.util.Arrays.sort;
 import static javafx.geometry.Pos.CENTER;
@@ -75,7 +74,7 @@ public class FontAwesomeView extends BorderPane {
                 row++;
             }
             T icon = i < icons.length ? icons[i] : null;
-            gridPane.add(createButton(icon, viewClass), column, row);
+            gridPane.add(createButton(icon, "2em", viewClass), column, row);
             column++;
         }
 
@@ -84,28 +83,13 @@ public class FontAwesomeView extends BorderPane {
         return borderPane;
     }
 
-    private <T extends Enum<T> & GlyphIcons, V extends GlyphIcon<T>> V createIcon(T icon, Class<V> viewClass) {
-        V view = null;
-        if (icon != null) {
-            try {
-                Constructor<V> constructor = viewClass.getConstructor(icon.getClass());
-                view = constructor.newInstance(icon);
-                view.setSize("2em");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return view;
-    }
-
-    private <T extends Enum<T> & GlyphIcons, V extends GlyphIcon<T>> Label createButton(T icon, Class<V> viewClass) {
+    private <T extends Enum<T> & GlyphIcons, V extends GlyphIcon<T>> Label createButton(T icon, String size, Class<V> viewClass) {
         Label label = new Label();
         label.setFont(Font.font("Candara", BLACK, REGULAR, 12.0));
         label.setTextAlignment(TextAlignment.CENTER);
         label.setAlignment(CENTER);
         if (icon != null) {
-            label.setGraphic(createIcon(icon, viewClass));
+            label.setGraphic(createIcon(icon, size, viewClass));
             label.setText(icon.name());
         }
         return label;

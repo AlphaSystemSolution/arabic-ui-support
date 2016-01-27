@@ -12,7 +12,7 @@ import static java.lang.Double.MAX_VALUE;
 public final class ComboBoxHelper {
 
     @SafeVarargs
-    public static <T extends ArabicSupportEnum> ComboBox<T> createComboBox(boolean addEmptyValue,
+    public static <T extends Enum<T> & ArabicSupportEnum> ComboBox<T> createComboBox(boolean addEmptyValue,
                                                                             ListType type, T... values) {
         ComboBox<T> comboBox = new ComboBox<>();
         if (addEmptyValue) {
@@ -28,17 +28,17 @@ public final class ComboBoxHelper {
     }
 
     @SafeVarargs
-    public static <T extends ArabicSupportEnum> ComboBox<T> createComboBox(boolean addEmptyValue, T... values) {
+    public static <T extends Enum<T> & ArabicSupportEnum> ComboBox<T> createComboBox(boolean addEmptyValue, T... values) {
         return createComboBox(addEmptyValue, LABEL_AND_CODE, values);
     }
 
     @SafeVarargs
-    public static <T extends ArabicSupportEnum> ComboBox<T> createComboBox(ListType type, T... values) {
+    public static <T extends Enum<T> & ArabicSupportEnum> ComboBox<T> createComboBox(ListType type, T... values) {
         return createComboBox(false, type, values);
     }
 
     @SafeVarargs
-    public static <T extends ArabicSupportEnum> ComboBox<T> createComboBox(T... values) {
+    public static <T extends Enum<T> & ArabicSupportEnum> ComboBox<T> createComboBox(T... values) {
         return createComboBox(LABEL_AND_CODE, values);
     }
 }

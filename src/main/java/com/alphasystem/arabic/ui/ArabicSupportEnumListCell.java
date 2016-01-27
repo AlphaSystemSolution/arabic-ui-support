@@ -17,7 +17,7 @@ import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 /**
  * @author sali
  */
-public class ArabicSupportEnumListCell<T extends ArabicSupportEnum> extends ListCell<T> {
+public class ArabicSupportEnumListCell<T extends Enum<T> & ArabicSupportEnum> extends ListCell<T> {
 
     private final Text codeText;
     private final Text arabicText;

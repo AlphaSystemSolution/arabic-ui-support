@@ -19,7 +19,7 @@ import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 /**
  * @author sali
  */
-public class ArabicSupportEnumComBoxTableCell<S, T extends ArabicSupportEnum> extends ComboBoxTableCell<S, T> {
+public class ArabicSupportEnumComBoxTableCell<S, T extends Enum<T> & ArabicSupportEnum> extends ComboBoxTableCell<S, T> {
 
     private final Text labelText;
     private final Text arabicText;

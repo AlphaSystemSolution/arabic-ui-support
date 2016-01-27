@@ -8,7 +8,7 @@ import javafx.util.Callback;
 /**
  * @author sali
  */
-public class ArabicSupportEnumCellFactory<T extends ArabicSupportEnum> implements
+public class ArabicSupportEnumCellFactory<T extends Enum<T> & ArabicSupportEnum> implements
         Callback<ListView<T>, ListCell<T>> {
 
     private final ListType type;
