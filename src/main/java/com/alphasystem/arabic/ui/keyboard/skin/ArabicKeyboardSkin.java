@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 
-import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static javafx.geometry.Pos.CENTER;
 import static javafx.scene.text.Font.font;
@@ -39,7 +38,7 @@ public class ArabicKeyboardSkin extends SkinBase<ArabicKeyboard> {
 
     private static String toHtmlCodeString(char unicode) {
         String s = format("%04x", (int) unicode);
-        return format("&#%s;", parseInt(s, 16));
+        return format("&#x%s;", s);
     }
 
     private static String toHtmlCodeString(String unicodeValue) {
