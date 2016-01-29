@@ -18,19 +18,20 @@
             <version>${arabic-support.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.alphasystem.ui</groupId>
+            <artifactId>fx-support</artifactId>
+            <version>${fx-support.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.alphasystem.arabic</groupId>
             <artifactId>morphological-analysis-model</artifactId>
             <version>${morphological-analysis-model.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx</artifactId>
-            <version>8.8</version>
         </dependency>
     </dependencies>
     <properties>
         <maven.test.skip>true</maven.test.skip>
         <arabic-support.version>${project.version}</arabic-support.version>
+        <fx-support.version>${project.version}</fx-support.version>
         <morphological-analysis-model.version>${project.version}</morphological-analysis-model.version>
     </properties>
 </project>
