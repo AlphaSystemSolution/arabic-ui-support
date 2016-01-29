@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.alphasystem.arabic.ui.keyboard.KeyboardView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.layout.VBox"
+         xmlns="http://javafx.com/javafx/8.0.40">
+    <KeyboardView fx:id="keyboard" styleClass="view"/>
+    <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="AS_NEEDED" nodeOrientation="RIGHT_TO_LEFT">
+        <TextArea fx:id="textArea" nodeOrientation="RIGHT_TO_LEFT" prefColumnCount="50" focusTraversable="false"/>
+    </ScrollPane>
+</fx:root>

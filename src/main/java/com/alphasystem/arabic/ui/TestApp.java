@@ -1,5 +1,6 @@
 package com.alphasystem.arabic.ui;
 
+import com.alphasystem.arabic.ui.keyboard.ArabicKeyboard;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -18,16 +19,20 @@ public class TestApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Test");
+
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
 
         primaryStage.setX(bounds.getMinX());
         primaryStage.setY(bounds.getMinY());
-        primaryStage.setWidth(bounds.getWidth());
-        primaryStage.setHeight(bounds.getHeight());
+        // primaryStage.setWidth(bounds.getWidth());
+        //primaryStage.setHeight(bounds.getHeight());
 
-        Scene scene = new Scene(new FontAwesomeView());
-        primaryStage.setMaximized(true);
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(600);
+
+        Scene scene = new Scene(new ArabicKeyboard());
+        //primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
