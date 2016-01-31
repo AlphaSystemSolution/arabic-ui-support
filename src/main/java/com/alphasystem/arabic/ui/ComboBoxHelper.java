@@ -9,16 +9,24 @@ import static java.lang.Double.MAX_VALUE;
 /**
  * @author sali
  */
-public final class ComboBoxHelper {
+public class ComboBoxHelper {
+
+    /**
+     * Do not let any one instantiate this class
+     */
+    private ComboBoxHelper() {
+    }
 
     @SafeVarargs
     public static <T extends Enum<T> & ArabicSupportEnum> ComboBox<T> createComboBox(boolean addEmptyValue,
-                                                                            ListType type, T... values) {
+                                                                                     ListType type, T... values) {
         ComboBox<T> comboBox = new ComboBox<>();
         if (addEmptyValue) {
             comboBox.getItems().add(null);
         }
-        comboBox.getItems().addAll(values);
+        if (values != null) {
+            comboBox.getItems().addAll(values);
+        }
         comboBox.setCellFactory(new ArabicSupportEnumCellFactory<>(type));
         comboBox.setButtonCell(new ArabicSupportEnumListCell<>(type));
         comboBox.getSelectionModel().select(0);
