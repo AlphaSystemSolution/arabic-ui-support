@@ -64,7 +64,7 @@ public class ArabicLabelView extends Control {
     private static String getLabelText(ArabicSupport value) {
         String text = "";
         if (value != null) {
-            ArabicWord arabicWord = value.getLabel();
+            ArabicWord arabicWord = value.toLabel();
             text = (arabicWord == null) ? "" : arabicWord.toUnicode();
         }
         return text;

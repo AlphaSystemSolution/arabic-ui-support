@@ -64,7 +64,7 @@ public class ArabicSupportEnumComBoxTableCell<S, T extends Enum<T> & ArabicSuppo
         Node graphic = null;
         if (item != null && !empty) {
             labelText.setText(format("(%s) ", item.getCode()));
-            arabicText.setText(item.getLabel().toUnicode());
+            arabicText.setText(item.toLabel().toUnicode());
             if (type.equals(LABEL_ONLY)) {
                 textFlow.getChildren().add(arabicText);
             } else if (type.equals(CODE_ONLY)) {

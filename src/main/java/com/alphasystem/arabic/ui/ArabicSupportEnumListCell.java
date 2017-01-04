@@ -40,7 +40,7 @@ public class ArabicSupportEnumListCell<T extends Enum<T> & ArabicSupportEnum> ex
         Node graphic = null;
         if (item != null && !empty) {
             codeText.setText(format("(%s) ", item.getCode()));
-            arabicText.setText(item.getLabel().toUnicode());
+            arabicText.setText(item.toLabel().toUnicode());
             if (type.equals(LABEL_ONLY)) {
                 textFlow.getChildren().add(arabicText);
             } else if (type.equals(CODE_ONLY)) {
