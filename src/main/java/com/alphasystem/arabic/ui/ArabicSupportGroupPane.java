@@ -101,7 +101,7 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
     }
 
     protected void initToggleGroup() {
-        toggleGroup.setWidth(64);
+        toggleGroup.setWidth(92);
         toggleGroup.setHeight(48);
         toggleGroup.setFont(ARABIC_FONT_30);
     }
