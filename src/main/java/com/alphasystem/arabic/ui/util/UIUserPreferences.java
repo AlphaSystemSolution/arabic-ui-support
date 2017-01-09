@@ -22,8 +22,10 @@ public abstract class UIUserPreferences extends GenericPreferences {
         super(c);
     }
 
+    protected abstract String nodePrefix();
+
     protected Preferences getFontNode() {
-        return getNode(FONT_NODE_NAME);
+        return getNode(String.format("%s_%s", nodePrefix(), FONT_NODE_NAME));
     }
 
     public String getArabicFontName() {
