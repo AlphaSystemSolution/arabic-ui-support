@@ -64,8 +64,32 @@ public abstract class UIUserPreferences extends GenericPreferences {
         return Font.font(getArabicFontName(), FontWeight.NORMAL, FontPosture.REGULAR, getArabicFontSize());
     }
 
+    public Font getArabicFont20() {
+        return Font.font(getArabicFontName(), FontWeight.NORMAL, FontPosture.REGULAR, 20);
+    }
+
+    public Font getArabicFont24() {
+        return Font.font(getArabicFontName(), FontWeight.NORMAL, FontPosture.REGULAR, 24);
+    }
+
+    public Font getArabicFont30() {
+        return Font.font(getArabicFontName(), FontWeight.NORMAL, FontPosture.REGULAR, 30);
+    }
+
+    public Font getArabicFont36() {
+        return Font.font(getArabicFontName(), FontWeight.NORMAL, FontPosture.REGULAR, 36);
+    }
+
     public Font getEnglishFont() {
         return Font.font(getEnglishFontName(), FontWeight.NORMAL, FontPosture.REGULAR, getEnglishFontSize());
+    }
+
+    public Font getEnglishFont12() {
+        return Font.font(getEnglishFontName(), FontWeight.NORMAL, FontPosture.REGULAR, 12);
+    }
+
+    public Font getEnglishFont14() {
+        return Font.font(getEnglishFontName(), FontWeight.NORMAL, FontPosture.REGULAR, 14);
     }
 
 }
