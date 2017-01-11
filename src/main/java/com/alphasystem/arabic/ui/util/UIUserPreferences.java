@@ -7,6 +7,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.util.prefs.Preferences;
 
 /**
@@ -20,6 +21,7 @@ public abstract class UIUserPreferences extends GenericPreferences {
     private static final String ARABIC_FONT_SIZE = "arabicFontSize";
     private static final String ENGLISH_FONT_NAME = "englishFontName";
     private static final String ENGLISH_FONT_SIZE = "englishFontSize";
+    private static final String INITIAL_DIRECTORY_KEY = "initialDirectory";
 
     protected UIUserPreferences(Class<?> c) {
         super(c);
@@ -79,15 +81,15 @@ public abstract class UIUserPreferences extends GenericPreferences {
         getFontNode().putLong(ENGLISH_FONT_SIZE, size);
     }
 
-    public String getLastAccessedDirectory() {
-        return getFileNode().get("lastAccessedDirectory", AppUtil.USER_HOME_DIR.getAbsolutePath());
+    public File getInitialDirectory() {
+        return new File(getFileNode().get(INITIAL_DIRECTORY_KEY, AppUtil.USER_HOME_DIR.getAbsolutePath()));
     }
 
-    public void setLastAccessedDirectory(String dir) {
-        if (StringUtils.isEmpty(dir)) {
+    public void setInitialDirectory(File dir) {
+        if (dir == null) {
             return;
         }
-        getFontNode().put("lastAccessedDirectory", dir);
+        getFileNode().put(INITIAL_DIRECTORY_KEY, dir.getAbsolutePath());
     }
 
     public Font getArabicFont() {
