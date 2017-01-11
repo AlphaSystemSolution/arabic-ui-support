@@ -56,6 +56,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
             if (rootLetters.isEmpty()) {
                 rootLetters = null;
             }
+            skinnable.setRootLetters(null);
             skinnable.setRootLetters(rootLetters);
         });
 
