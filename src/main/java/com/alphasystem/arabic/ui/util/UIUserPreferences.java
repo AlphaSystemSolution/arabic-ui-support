@@ -1,9 +1,11 @@
 package com.alphasystem.arabic.ui.util;
 
+import com.alphasystem.util.AppUtil;
 import com.alphasystem.util.GenericPreferences;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.prefs.Preferences;
 
@@ -13,6 +15,7 @@ import java.util.prefs.Preferences;
 public abstract class UIUserPreferences extends GenericPreferences {
 
     private static final String FONT_NODE_NAME = "FONT_PREFERENCES";
+    private static final String FILE_NODE_NAME = "FILE";
     private static final String ARABIC_FONT_NAME_KEY = "arabicFontName";
     private static final String ARABIC_FONT_SIZE = "arabicFontSize";
     private static final String ENGLISH_FONT_NAME = "englishFontName";
@@ -25,7 +28,11 @@ public abstract class UIUserPreferences extends GenericPreferences {
     protected abstract String nodePrefix();
 
     protected Preferences getFontNode() {
-        return getNode(String.format("%s_%s", nodePrefix(), FONT_NODE_NAME));
+        return getNode(nodePrefix(), FONT_NODE_NAME);
+    }
+
+    protected Preferences getFileNode() {
+        return getNode(nodePrefix(), FILE_NODE_NAME);
     }
 
     public String getArabicFontName() {
@@ -33,6 +40,9 @@ public abstract class UIUserPreferences extends GenericPreferences {
     }
 
     public void setArabicFontName(String name) {
+        if (StringUtils.isEmpty(name)) {
+            return;
+        }
         getFontNode().put(ARABIC_FONT_NAME_KEY, name);
     }
 
@@ -41,6 +51,9 @@ public abstract class UIUserPreferences extends GenericPreferences {
     }
 
     public void setArabicFontSize(long size) {
+        if (size <= 0) {
+            return;
+        }
         getFontNode().putLong(ARABIC_FONT_SIZE, size);
     }
 
@@ -49,6 +62,9 @@ public abstract class UIUserPreferences extends GenericPreferences {
     }
 
     public void setEnglishFontName(String name) {
+        if (StringUtils.isEmpty(name)) {
+            return;
+        }
         getFontNode().put(ENGLISH_FONT_NAME, name);
     }
 
@@ -57,7 +73,21 @@ public abstract class UIUserPreferences extends GenericPreferences {
     }
 
     public void setEnglishFontSize(long size) {
+        if (size <= 0) {
+            return;
+        }
         getFontNode().putLong(ENGLISH_FONT_SIZE, size);
+    }
+
+    public String getLastAccessedDirectory() {
+        return getFileNode().get("lastAccessedDirectory", AppUtil.USER_HOME_DIR.getAbsolutePath());
+    }
+
+    public void setLastAccessedDirectory(String dir) {
+        if (StringUtils.isEmpty(dir)) {
+            return;
+        }
+        getFontNode().put("lastAccessedDirectory", dir);
     }
 
     public Font getArabicFont() {
