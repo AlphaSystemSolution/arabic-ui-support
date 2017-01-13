@@ -23,12 +23,12 @@ public class ArabicLabelToggleGroup {
 
     public static final Color DEFAULT_STROKE = TRANSPARENT;
 
-    private final DoubleProperty width = new SimpleDoubleProperty(0, "width");
-    private final DoubleProperty height = new SimpleDoubleProperty(0, "width");
+    private final DoubleProperty width = new SimpleDoubleProperty(this, "width", 0);
+    private final DoubleProperty height = new SimpleDoubleProperty(this, "width", 0);
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(null, "font");
-    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(DEFAULT_STROKE, "stroke");
-    private final BooleanProperty disable = new SimpleBooleanProperty(false, "disable");
-    private final BooleanProperty multipleSelect = new SimpleBooleanProperty(true, "multipleSelect");
+    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this, "stroke", DEFAULT_STROKE);
+    private final BooleanProperty disable = new SimpleBooleanProperty(this, "disable", false);
+    private final BooleanProperty multipleSelect = new SimpleBooleanProperty(this, "multipleSelect", true);
     private final ObjectProperty<ArabicLabelView> selectedLabel = new SimpleObjectProperty<>(null, "selectedLabel");
     private final ObservableList<ArabicLabelView> selectedValues = observableArrayList();
     private final ObservableList<ArabicLabelView> toggles = new VetoableListDecorator<ArabicLabelView>
@@ -87,11 +87,30 @@ public class ArabicLabelToggleGroup {
         } // end of "onProposedChange"
     };
 
+
     /**
      * Default Constructor
      */
     public ArabicLabelToggleGroup() {
         setMultipleSelect(true);
+        fontProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            toggles.forEach(arabicLabelView -> arabicLabelView.setFont(newValue));
+        });
+        widthProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            toggles.forEach(arabicLabelView -> arabicLabelView.setWidth((Double) newValue));
+        });
+        heightProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            toggles.forEach(arabicLabelView -> arabicLabelView.setHeight((Double) newValue));
+        });
     }
 
     public final boolean getDisable() {
