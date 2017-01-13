@@ -11,7 +11,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_STROKE;
-import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_36;
+import static com.alphasystem.arabic.ui.util.FontUtilities.getArabicFont;
 import static javafx.geometry.Pos.CENTER;
 import static javafx.scene.paint.Color.*;
 
@@ -25,12 +25,12 @@ public class ArabicLabelView extends Control {
 
     private final ReadOnlyBooleanWrapper selected = new ReadOnlyBooleanWrapper(false, "selected");
     private final BooleanProperty select = new SimpleBooleanProperty();
-    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(ARABIC_FONT_36, "font");
-    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(DEFAULT_STROKE, "stroke");
-    private final ObjectProperty<Paint> unSelectedStroke = new SimpleObjectProperty<>(BLACK, "unSelectedStroke");
-    private final ObjectProperty<Paint> selectedStroke = new SimpleObjectProperty<>(RED, "unSelectedStroke");
-    private final ObjectProperty<Paint> disabledStroke = new SimpleObjectProperty<>(LIGHTGRAY, "unSelectedStroke");
-    private final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(CENTER, "alignment");
+    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", getArabicFont(36));
+    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this, "stroke", DEFAULT_STROKE);
+    private final ObjectProperty<Paint> unSelectedStroke = new SimpleObjectProperty<>(this, "unSelectedStroke", BLACK);
+    private final ObjectProperty<Paint> selectedStroke = new SimpleObjectProperty<>(this, "unSelectedStroke", RED);
+    private final ObjectProperty<Paint> disabledStroke = new SimpleObjectProperty<>(this, "unSelectedStroke", LIGHTGRAY);
+    private final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(this, "alignment", CENTER);
     private final ObjectProperty<ArabicSupport> label = new SimpleObjectProperty<>(null, "label");
     private final StringProperty text = new SimpleStringProperty(null, "text");
     private final ObjectProperty<ArabicLabelToggleGroup> group = new SimpleObjectProperty<>(null, "group");
@@ -51,7 +51,7 @@ public class ArabicLabelView extends Control {
         setText(getLabelText(label));
         setWidth(DEFAULT_WIDTH);
         setHeight(DEFAULT_HEIGHT);
-        setFont(ARABIC_FONT_36);
+        setFont(getArabicFont(36));
         setStroke(DEFAULT_STROKE);
         setUnSelectedStroke(BLACK);
         setSelectedStroke(RED);
@@ -119,7 +119,7 @@ public class ArabicLabelView extends Control {
     }
 
     public final void setFont(Font font) {
-        this.font.set((font == null) ? ARABIC_FONT_36 : font);
+        this.font.set((font == null) ? getArabicFont(36) : font);
     }
 
     public final ObjectProperty<Font> fontProperty() {
