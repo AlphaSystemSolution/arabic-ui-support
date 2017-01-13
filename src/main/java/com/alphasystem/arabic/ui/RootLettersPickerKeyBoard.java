@@ -1,106 +1,49 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.model.ArabicLetterType;
+import com.alphasystem.arabic.ui.skin.RootLettersPickerKeyBoardSkin;
+import com.alphasystem.arabic.ui.util.FontUtilities;
+import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.control.Control;
+import javafx.scene.control.Skin;
+import javafx.scene.text.Font;
 
-import static com.alphasystem.arabic.model.ArabicLetterType.*;
-import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_24;
 import static com.alphasystem.util.AppUtil.getResource;
-import static javafx.geometry.NodeOrientation.RIGHT_TO_LEFT;
 
 /**
  * @author sali
  */
-public class RootLettersPickerKeyBoard extends VBox {
+public class RootLettersPickerKeyBoard extends Control {
 
-    private static final int PREF_WIDTH = 48;
-    private static final int PREF_HEIGHT = 36;
     private static final int SPACING = 5;
-    private static final ArabicLetterType[] ROW_1 = {DDAD, SAD, THA, QAF, FA, GHAIN, AIN, HHA, KHA, HA, JEEM, DAL, THAL};
-    private static final ArabicLetterType[] ROW_2 = {SHEEN, SEEN, YA, BA, LAM, ALIF, TA, NOON, MEEM, KAF, TTA, null, null};
-    private static final ArabicLetterType[] ROW_3 = {YA_HAMZA_ABOVE, HAMZA, WAW_HAMZA_ABOVE, RA, ALIF_MAKSURA,
-            TA_MARBUTA, WAW, ZAIN, DTHA, null, null};
 
-    private final ArabicLabelToggleGroup group;
-    private final ArabicLabelView[] labels = new ArabicLabelView[4];
-    private final ObjectProperty<ArabicLetterType> firstRadical = new SimpleObjectProperty<>();
-    private final ObjectProperty<ArabicLetterType> secondRadical = new SimpleObjectProperty<>();
-    private final ObjectProperty<ArabicLetterType> thirdRadical = new SimpleObjectProperty<>();
-    private final ObjectProperty<ArabicLetterType> fourthRadical = new SimpleObjectProperty<>();
-    private int currentIndex;
-    private ArabicLabelView currentView;
+    private final ObjectProperty<ArabicLetterType> firstRadical = new SimpleObjectProperty<>(this, "firstRadical", ArabicLetterType.FA);
+    private final ObjectProperty<ArabicLetterType> secondRadical = new SimpleObjectProperty<>(this, "secondRadical", ArabicLetterType.AIN);
+    private final ObjectProperty<ArabicLetterType> thirdRadical = new SimpleObjectProperty<>(this, "thirdRadical", ArabicLetterType.LAM);
+    private final ObjectProperty<ArabicLetterType> fourthRadical = new SimpleObjectProperty<>(this, "fourthRadical");
+    private final DoubleProperty selectedLabelWidth = new SimpleDoubleProperty(this, "selectedLabelWidth", 32);
+    private final DoubleProperty selectedLabelHeight = new SimpleDoubleProperty(this, "selectedLabelWidth", 32);
+    private final DoubleProperty keyboardButtonWidth = new SimpleDoubleProperty(this, "keyboardButtonWidth", 48);
+    private final DoubleProperty keyboardButtonHeight = new SimpleDoubleProperty(this, "keyboardButtonHeight", 36);
+    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", FontUtilities.ARABIC_FONT_24);
+    private final DoubleProperty spacing = new SimpleDoubleProperty(this, "spacing", 5);
+    private final ReadOnlyObjectWrapper<RootLetters> rootLetters = new ReadOnlyObjectWrapper<>(this, "rootLetters", new RootLetters());
 
     public RootLettersPickerKeyBoard() {
-        this(null, null, null, null);
-    }
-
-    public RootLettersPickerKeyBoard(final ArabicLetterType firstRadical, final ArabicLetterType secondRadical,
-                                     final ArabicLetterType thirdRadical, final ArabicLetterType fourthRadical) {
-        group = new ArabicLabelToggleGroup();
-        group.setMultipleSelect(false);
-        group.setWidth(32);
-        group.setHeight(32);
-        group.setFont(ARABIC_FONT_24);
-
+        firstRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setFirstRadical(newValue));
+        secondRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setSecondRadical(newValue));
+        thirdRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setThirdRadical(newValue));
+        fourthRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setFourthRadical(newValue));
         setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         setSpacing(SPACING);
-
-        labels[0] = createLabel(firstRadical, 0);
-        labels[0].labelProperty().addListener((o, oV, nV) -> {
-            firstRadicalProperty().setValue((ArabicLetterType) nV);
-        });
-        labels[1] = createLabel(secondRadical, 1);
-        labels[1].labelProperty().addListener((o, oV, nV) -> {
-            secondRadicalProperty().setValue((ArabicLetterType) nV);
-        });
-        labels[2] = createLabel(thirdRadical, 2);
-        labels[2].labelProperty().addListener((o, oV, nV) -> {
-            thirdRadicalProperty().setValue((ArabicLetterType) nV);
-        });
-        labels[3] = createLabel(fourthRadical, 3);
-        labels[3].labelProperty().addListener((o, oV, nV) -> {
-            fourthRadicalProperty().setValue((ArabicLetterType) nV);
-        });
-        selectFirst();
-
-        FlowPane flowPane = new FlowPane();
-        flowPane.setHgap(SPACING);
-        flowPane.setNodeOrientation(RIGHT_TO_LEFT);
-        flowPane.getChildren().addAll(labels[0], labels[1], labels[2], labels[3]);
-        flowPane.setAlignment(Pos.TOP_CENTER);
-
-        FlowPane row3 = createRow(ROW_3);
-        row3.getChildren().add(createClearButton());
-        getChildren().addAll(flowPane, createRow(ROW_1), createRow(ROW_2), row3);
-        setFocusTraversable(true);
-
-        initializeListeners();
-
-        setRootLetters(firstRadical, secondRadical, thirdRadical, fourthRadical);
-        getStyleClass().addAll("popup");
-    }
-
-    private Button createClearButton() {
-        Button clearButton = new Button("    Clear   ");
-        clearButton.setStyle("-fx-base: beige;");
-        clearButton.setPrefSize(PREF_WIDTH * 2 + SPACING, PREF_HEIGHT);
-        clearButton.setMinSize(USE_PREF_SIZE, USE_PREF_SIZE);
-        clearButton.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
-        clearButton.setOnAction(event -> {
-            labels[0].setLabel(null);
-            labels[1].setLabel(null);
-            labels[2].setLabel(null);
-            labels[3].setLabel(null);
-            selectFirst();
-        });
-        return clearButton;
+        setStyle("-fx-base: beige;");
+        setSkin(createDefaultSkin());
     }
 
     @Override
@@ -108,117 +51,132 @@ public class RootLettersPickerKeyBoard extends VBox {
         return getResource("arabic-ui-support.css").toExternalForm();
     }
 
-    private void initializeListeners() {
-        firstRadicalProperty().addListener((o, ov, nv) -> {
-            labels[0].setLabel(nv);
-        });
-        secondRadicalProperty().addListener((o, ov, nv) -> {
-            labels[1].setLabel(nv);
-        });
-        thirdRadicalProperty().addListener((o, ov, nv) -> {
-            labels[2].setLabel(nv);
-        });
-        fourthRadicalProperty().addListener((o, ov, nv) -> {
-            labels[3].setLabel(nv);
-        });
-    }
-
-    public final ArabicLetterType getFirstRadical() {
-        return firstRadical.get();
+    @Override
+    protected Skin<?> createDefaultSkin() {
+        return new RootLettersPickerKeyBoardSkin(this);
     }
 
     public final ObjectProperty<ArabicLetterType> firstRadicalProperty() {
         return firstRadical;
     }
 
-    public final ArabicLetterType getSecondRadical() {
-        return secondRadical.get();
+    public final void setFirstRadical(ArabicLetterType firstRadical) {
+        this.firstRadical.set(firstRadical);
     }
 
     public final ObjectProperty<ArabicLetterType> secondRadicalProperty() {
         return secondRadical;
     }
 
-    public final ArabicLetterType getThirdRadical() {
-        return thirdRadical.get();
+    public final void setSecondRadical(ArabicLetterType secondRadical) {
+        this.secondRadical.set(secondRadical);
     }
 
     public final ObjectProperty<ArabicLetterType> thirdRadicalProperty() {
         return thirdRadical;
     }
 
-    public final ArabicLetterType getFourthRadical() {
-        return fourthRadical.get();
+    public final void setThirdRadical(ArabicLetterType thirdRadical) {
+        this.thirdRadical.set(thirdRadical);
     }
 
     public final ObjectProperty<ArabicLetterType> fourthRadicalProperty() {
         return fourthRadical;
     }
 
-    private ArabicLabelView createLabel(ArabicLetterType letter, int index) {
-        ArabicLabelView label = new ArabicLabelView(letter);
-        label.selectedProperty().addListener((o, oV, nV) -> {
-            currentIndex = index;
-            currentView = labels[currentIndex];
-        });
-        label.setGroup(group);
-        return label;
+    public final void setFourthRadical(ArabicLetterType fourthRadical) {
+        this.fourthRadical.set(fourthRadical);
     }
 
-    private FlowPane createRow(ArabicLetterType[] row) {
-        FlowPane flowPane = new FlowPane();
-        flowPane.setHgap(SPACING);
-        flowPane.setMinWidth(700);
-
-        for (ArabicLetterType arabicLetterType : row) {
-            flowPane.getChildren().add(createKeyBoardButton(arabicLetterType));
-        }
-        return flowPane;
+    public final double getSelectedLabelWidth() {
+        return selectedLabelWidth.get();
     }
 
-    private Button createKeyBoardButton(ArabicLetterType letter) {
-        Button button = new Button();
-        button.setStyle("-fx-base: beige;");
-        boolean disable = (letter == null);
-        button.setDisable(disable);
-        button.setPrefSize(PREF_WIDTH, PREF_HEIGHT);
-        button.setMinSize(USE_PREF_SIZE, USE_PREF_SIZE);
-        button.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
-        Text graphic = null;
-        if (!disable) {
-            graphic = new Text(letter.toUnicode());
-            graphic.setFont(ARABIC_FONT_24);
-        }
-        button.setGraphic(graphic);
-        button.setOnAction(event -> {
-            ArabicLabelView selectedLabel = group.getSelectedLabel();
-            if(selectedLabel != null){
-                selectedLabel.setLabel(letter);
-                selectedLabel.setSelect(false);
-            }
-
-            currentIndex = (currentIndex + 1) % 4;
-            currentView = labels[currentIndex];
-            currentView.setSelect(true);
-        });
-        return button;
+    public final DoubleProperty selectedLabelWidthProperty() {
+        return selectedLabelWidth;
     }
 
-    public final ArabicLetterType[] getRootLetters() {
-        return new ArabicLetterType[]{getFirstRadical(), getSecondRadical(), getThirdRadical(), getFourthRadical()};
+    public final void setSelectedLabelWidth(double selectedLabelWidth) {
+        this.selectedLabelWidth.set(selectedLabelWidth);
+    }
+
+    public final double getSelectedLabelHeight() {
+        return selectedLabelHeight.get();
+    }
+
+    public final DoubleProperty selectedLabelHeightProperty() {
+        return selectedLabelHeight;
+    }
+
+    public final void setSelectedLabelHeight(double selectedLabelHeight) {
+        this.selectedLabelHeight.set(selectedLabelHeight);
+    }
+
+    public final double getKeyboardButtonWidth() {
+        return keyboardButtonWidth.get();
+    }
+
+    public final DoubleProperty keyboardButtonWidthProperty() {
+        return keyboardButtonWidth;
+    }
+
+    public final void setKeyboardButtonWidth(double keyboardButtonWidth) {
+        this.keyboardButtonWidth.set(keyboardButtonWidth);
+    }
+
+    public final double getKeyboardButtonHeight() {
+        return keyboardButtonHeight.get();
+    }
+
+    public final DoubleProperty keyboardButtonHeightProperty() {
+        return keyboardButtonHeight;
+    }
+
+    public final void setKeyboardButtonHeight(double keyboardButtonHeight) {
+        this.keyboardButtonHeight.set(keyboardButtonHeight);
+    }
+
+    public final Font getFont() {
+        return font.get();
+    }
+
+    public final ObjectProperty<Font> fontProperty() {
+        return font;
+    }
+
+    public final void setFont(Font font) {
+        this.font.set(font);
+    }
+
+    public final double getSpacing() {
+        return spacing.get();
+    }
+
+    public final DoubleProperty spacingProperty() {
+        return spacing;
+    }
+
+    public final void setSpacing(double spacing) {
+        this.spacing.set(spacing);
+    }
+
+    public final RootLetters getRootLetters() {
+        return rootLetters.get();
     }
 
     public final void setRootLetters(final ArabicLetterType firstRadical, final ArabicLetterType secondRadical,
                                      final ArabicLetterType thirdRadical, final ArabicLetterType fourthRadical) {
-        firstRadicalProperty().setValue(firstRadical);
-        secondRadicalProperty().setValue(secondRadical);
-        thirdRadicalProperty().setValue(thirdRadical);
-        fourthRadicalProperty().setValue(fourthRadical);
+        setFirstRadical((firstRadical == null) ? ArabicLetterType.FA : firstRadical);
+        setSecondRadical((secondRadical == null) ? ArabicLetterType.AIN : secondRadical);
+        setThirdRadical((thirdRadical == null) ? ArabicLetterType.LAM : thirdRadical);
+        setFourthRadical(fourthRadical);
     }
 
-    private void selectFirst() {
-        currentIndex = 0;
-        currentView = labels[currentIndex];
-        currentView.setSelect(true);
+    public final void setRootLetters(final RootLetters rootLetters) {
+        setFirstRadical((rootLetters == null) ? ArabicLetterType.FA : rootLetters.getFirstRadical());
+        setSecondRadical((rootLetters == null) ? ArabicLetterType.AIN : rootLetters.getSecondRadical());
+        setThirdRadical((rootLetters == null) ? ArabicLetterType.LAM : rootLetters.getThirdRadical());
+        setFourthRadical((rootLetters == null) ? null : rootLetters.getFourthRadical());
     }
+
 }
