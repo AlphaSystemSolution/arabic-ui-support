@@ -15,7 +15,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 
 import static com.alphasystem.arabic.model.ArabicWord.*;
-import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_26;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
 
 /**
@@ -41,30 +40,23 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
         keyboardPopup.setHideOnEscape(true);
         keyboardPopup.getContent().add(keyBoard);
         keyboardPopup.setOnHiding(event -> {
-            ArabicLetterType[] rootLettersArray = keyBoard.getRootLetters();
-            final RootLettersPicker skinnable = getSkinnable();
-            RootLetters rootLetters = skinnable.getRootLetters();
-            if (rootLetters == null) {
+            final RootLetters rootLetters1 = keyBoard.getRootLetters();
+            RootLetters rootLetters = null;
+            if (rootLetters1 == null) {
                 rootLetters = new RootLetters();
+            } else {
+                rootLetters = new RootLetters(rootLetters1);
             }
-            rootLetters.setFirstRadical(rootLettersArray[0]);
-            rootLetters.setSecondRadical(rootLettersArray[1]);
-            rootLetters.setThirdRadical(rootLettersArray[2]);
-            rootLetters.setFourthRadical(rootLettersArray[3]);
-            rootLetters.initDisplayName();
-            skinnable.setRootLetters(null);
-            if (rootLetters.isEmpty()) {
-                rootLetters = null;
-            }
-            skinnable.setRootLetters(null);
-            skinnable.setRootLetters(rootLetters);
+            getSkinnable().setRootLetters(null);
+            getSkinnable().setRootLetters(rootLetters);
         });
 
         ArabicLabelView label = new ArabicLabelView();
         label.setDisable(true);
         label.setWidth(160);
         label.setHeight(32);
-        label.setFont(ARABIC_FONT_26);
+        label.setFont(getSkinnable().getFont());
+        label.fontProperty().bind(getSkinnable().fontProperty());
 
         updateView(keyBoard, label);
 
