@@ -1,6 +1,8 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.model.ArabicSupportEnum;
+import com.alphasystem.arabic.ui.util.UIUserPreferences;
+import com.alphasystem.util.GenericPreferences;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -11,8 +13,6 @@ import javafx.scene.text.TextFlow;
 
 import static com.alphasystem.arabic.ui.ComboBoxHelper.createComboBox;
 import static com.alphasystem.arabic.ui.ListType.*;
-import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_20;
-import static com.alphasystem.fx.ui.util.FontConstants.ENGLISH_FONT_14;
 import static java.lang.String.format;
 import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 
@@ -35,9 +35,10 @@ public class ArabicSupportEnumComBoxTableCell<S, T extends Enum<T> & ArabicSuppo
         setContentDisplay(GRAPHIC_ONLY);
         this.type = type;
         labelText = new Text();
-        labelText.setFont(ENGLISH_FONT_14);
+        final UIUserPreferences preferences = GenericPreferences.getInstance(UIUserPreferences.class);
+        labelText.setFont(preferences.getEnglishFont());
         arabicText = new Text();
-        arabicText.setFont(ARABIC_FONT_20);
+        arabicText.setFont(preferences.getArabicFont());
         comboBox = createComboBox(values);
         comboBox.editableProperty().bind(column.editableProperty());
         comboBox.disableProperty().bind(column.editableProperty().not());

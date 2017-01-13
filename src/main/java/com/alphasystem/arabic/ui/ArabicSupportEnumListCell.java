@@ -1,6 +1,8 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.model.ArabicSupportEnum;
+import com.alphasystem.arabic.ui.util.UIUserPreferences;
+import com.alphasystem.util.GenericPreferences;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -9,8 +11,6 @@ import javafx.scene.text.TextFlow;
 
 import static com.alphasystem.arabic.ui.ListType.CODE_ONLY;
 import static com.alphasystem.arabic.ui.ListType.LABEL_ONLY;
-import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_24;
-import static com.alphasystem.fx.ui.util.FontConstants.ENGLISH_FONT_14;
 import static java.lang.String.format;
 import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 
@@ -27,9 +27,10 @@ public class ArabicSupportEnumListCell<T extends Enum<T> & ArabicSupportEnum> ex
         this.type = type;
         setContentDisplay(GRAPHIC_ONLY);
         codeText = new Text();
-        codeText.setFont(ENGLISH_FONT_14);
+        final UIUserPreferences preferences = GenericPreferences.getInstance(UIUserPreferences.class);
+        codeText.setFont(preferences.getEnglishFont());
         arabicText = new Text();
-        arabicText.setFont(ARABIC_FONT_24);
+        arabicText.setFont(preferences.getArabicFont());
     }
 
     @Override
