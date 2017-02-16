@@ -3,6 +3,7 @@ package com.alphasystem.arabic.ui;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.skin.ArabicLabelViewSkin;
+import com.alphasystem.util.IdGenerator;
 import javafx.beans.property.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Control;
@@ -43,6 +44,7 @@ public class ArabicLabelView extends Control {
     }
 
     public ArabicLabelView(ArabicSupport label) {
+        setId(IdGenerator.nextId());
         labelProperty().addListener((o, oV, nV) -> {
             setUserData(nV);
             setText(getLabelText(nV));
