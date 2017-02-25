@@ -90,9 +90,9 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
 
         ArabicWord word = new ArabicWord();
         word = (firstRadical == null) ? word : getWord(firstRadical);
-        word = (secondRadical == null) ? word : concatenate(appendTatweel(word), getWord(secondRadical));
-        word = (thirdRadical == null) ? word : concatenate(appendTatweel(word), getWord(thirdRadical));
-        word = (fourthRadical == null) ? word : concatenate(appendTatweel(word), getWord(fourthRadical));
+        word = (secondRadical == null) ? word : concatenate(word, getWord(secondRadical));
+        word = (thirdRadical == null) ? word : concatenate(word, getWord(thirdRadical));
+        word = (fourthRadical == null) ? word : concatenate(word, getWord(fourthRadical));
         label.setLabel(word);
     }
 
