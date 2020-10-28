@@ -26,10 +26,12 @@ public class ArabicSupportEnumComBoxTableCell<S, T extends Enum<T> & ArabicSuppo
     private final ListType type;
     private final ComboBox<T> comboBox;
 
+    @SafeVarargs
     public ArabicSupportEnumComBoxTableCell(TableColumn<S, T> column, T... values) {
         this(column, LABEL_AND_CODE, values);
     }
 
+    @SafeVarargs
     public ArabicSupportEnumComBoxTableCell(TableColumn<S, T> column, ListType type, T... values) {
         super(values);
         setContentDisplay(GRAPHIC_ONLY);

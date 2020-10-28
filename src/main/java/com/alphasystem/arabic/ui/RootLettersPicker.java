@@ -1,6 +1,7 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.ui.skin.RootLettersPickerSkin;
+import com.alphasystem.arabic.ui.util.FontUtilities;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -9,8 +10,6 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.text.Font;
 
-import static com.alphasystem.arabic.ui.util.FontUtilities.getArabicFont;
-
 /**
  * @author sali
  */
@@ -18,7 +17,8 @@ public class RootLettersPicker extends Control {
 
     private final ObjectProperty<RootLetters> rootLetters = new SimpleObjectProperty<>(null, "rootLetters");
     private final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(this, "alignment", Pos.CENTER_LEFT);
-    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "", getArabicFont(26));
+    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "",
+            FontUtilities.getArabicRegularFont(26));
 
     public RootLettersPicker() {
         setSkin(createDefaultSkin());
@@ -62,6 +62,6 @@ public class RootLettersPicker extends Control {
     }
 
     public void setFont(Font font) {
-        this.font.set((font == null) ? getArabicFont(26) : font);
+        this.font.set((font == null) ? FontUtilities.getArabicRegularFont(26) : font);
     }
 }

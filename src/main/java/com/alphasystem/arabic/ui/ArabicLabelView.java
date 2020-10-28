@@ -3,6 +3,7 @@ package com.alphasystem.arabic.ui;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.skin.ArabicLabelViewSkin;
+import com.alphasystem.arabic.ui.util.FontUtilities;
 import com.alphasystem.util.IdGenerator;
 import javafx.beans.property.*;
 import javafx.geometry.Pos;
@@ -12,7 +13,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import static com.alphasystem.arabic.ui.ArabicLabelToggleGroup.DEFAULT_STROKE;
-import static com.alphasystem.arabic.ui.util.FontUtilities.getArabicFont;
 import static javafx.geometry.Pos.CENTER;
 import static javafx.scene.paint.Color.*;
 
@@ -26,7 +26,8 @@ public class ArabicLabelView extends Control {
 
     private final ReadOnlyBooleanWrapper selected = new ReadOnlyBooleanWrapper(false, "selected");
     private final BooleanProperty select = new SimpleBooleanProperty();
-    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", getArabicFont(36));
+    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font",
+            FontUtilities.getArabicRegularFont(26));
     private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this, "stroke", DEFAULT_STROKE);
     private final ObjectProperty<Paint> unSelectedStroke = new SimpleObjectProperty<>(this, "unSelectedStroke", BLACK);
     private final ObjectProperty<Paint> selectedStroke = new SimpleObjectProperty<>(this, "unSelectedStroke", RED);
@@ -53,7 +54,7 @@ public class ArabicLabelView extends Control {
         setText(getLabelText(label));
         setWidth(DEFAULT_WIDTH);
         setHeight(DEFAULT_HEIGHT);
-        setFont(getArabicFont(36));
+        setFont(FontUtilities.getArabicRegularFont(36));
         setStroke(DEFAULT_STROKE);
         setUnSelectedStroke(BLACK);
         setSelectedStroke(RED);
@@ -121,7 +122,7 @@ public class ArabicLabelView extends Control {
     }
 
     public final void setFont(Font font) {
-        this.font.set((font == null) ? getArabicFont(36) : font);
+        this.font.set((font == null) ? FontUtilities.getArabicRegularFont(36) : font);
     }
 
     public final ObjectProperty<Font> fontProperty() {
