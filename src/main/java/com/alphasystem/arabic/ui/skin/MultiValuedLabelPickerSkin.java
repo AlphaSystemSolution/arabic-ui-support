@@ -3,6 +3,7 @@ package com.alphasystem.arabic.ui.skin;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.ui.ArabicSupportGroupPane;
 import com.alphasystem.arabic.ui.MultiValuedLabelPicker;
+import com.alphasystem.arabic.ui.util.FontAdapter;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -15,7 +16,6 @@ import javafx.stage.Popup;
 
 import java.util.Collection;
 
-import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_24;
 import static com.alphasystem.util.AppUtil.getResourceAsStream;
 
 /**
@@ -28,7 +28,8 @@ public class MultiValuedLabelPickerSkin<T extends ArabicSupport> extends SkinBas
     private final GridPane labelsGridPane = new GridPane();
 
     @SuppressWarnings({"unchecked"})
-    protected MultiValuedLabelPickerSkin(MultiValuedLabelPicker<T> control, ArabicSupportGroupPane<T> pickerPane,
+    protected MultiValuedLabelPickerSkin(MultiValuedLabelPicker<T> control,
+                                         ArabicSupportGroupPane<T> pickerPane,
                                          ArabicSupportGroupPane<T> viewPane) {
         super(control);
         this.pickerPane = pickerPane;
@@ -115,7 +116,7 @@ public class MultiValuedLabelPickerSkin<T extends ArabicSupport> extends SkinBas
             toggleGroup.setWidth(48);
             toggleGroup.setHeight(40);
             toggleGroup.setDisable(true);
-            toggleGroup.setFont(ARABIC_FONT_24);
+            toggleGroup.setFont(FontAdapter.getInstance().getArabicRegularFont(24));
         }
     }
 

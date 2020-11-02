@@ -73,9 +73,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
     private void updateView(RootLettersPickerKeyBoard keyBoard, ArabicLabelView label) {
         final RootLettersPicker skinnable = getSkinnable();
         updateLabel(keyBoard, label, skinnable.getRootLetters());
-        skinnable.rootLettersProperty().addListener((o, ov, nv) -> {
-            updateLabel(keyBoard, label, nv);
-        });
+        skinnable.rootLettersProperty().addListener((o, ov, nv) -> updateLabel(keyBoard, label, nv));
     }
 
     private void updateLabel(RootLettersPickerKeyBoard keyBoard, ArabicLabelView label, RootLetters rootLetters) {

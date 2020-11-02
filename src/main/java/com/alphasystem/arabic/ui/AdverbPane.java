@@ -23,4 +23,5 @@ public class AdverbPane extends ArabicSupportGroupPane<NounOfPlaceAndTime> {
     protected AdverbPane(int numOfColumns, NounOfPlaceAndTime[] srcValues) {
         super(numOfColumns, srcValues);
     }
+
 }

@@ -17,9 +17,6 @@ public abstract class MultiValuedLabelPicker<T extends ArabicSupport> extends Co
     protected final ObservableList<T> values = observableArrayList();
     protected final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(Pos.CENTER_LEFT);
 
-    protected MultiValuedLabelPicker() {
-    }
-
     public final ObservableList<T> getValues() {
         return values;
     }

@@ -9,10 +9,6 @@ import javafx.scene.control.Skin;
  */
 public class VerbalNounsPicker extends MultiValuedLabelPicker<VerbalNoun> {
 
-    public VerbalNounsPicker() {
-        super();
-    }
-
     @Override
     protected Skin<?> createDefaultSkin() {
         return new VerbalNounsPickerSkin(this);

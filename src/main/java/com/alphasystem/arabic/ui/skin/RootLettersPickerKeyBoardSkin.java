@@ -36,20 +36,24 @@ public class RootLettersPickerKeyBoardSkin extends SkinBase<RootLettersPickerKey
         getChildren().setAll(new SkinView(control));
     }
 
-    private class SkinView extends VBox {
+    private static class SkinView extends VBox {
 
         private int currentIndex;
         private ArabicLabelView currentView;
         private final RootLettersPickerKeyBoard control;
         private final ArabicLabelToggleGroup group = new ArabicLabelToggleGroup();
         private final ArabicLabelView[] labels = new ArabicLabelView[4];
-        private final ArabicLabelView firstRadicalLabel = new ArabicLabelView();
-        private final ArabicLabelView secondRadicalLabel = new ArabicLabelView();
-        private final ArabicLabelView thirdRadicalLabel = new ArabicLabelView();
-        private final ArabicLabelView fourthRadicalLabel = new ArabicLabelView();
+        private final ArabicLabelView firstRadicalLabel;
+        private final ArabicLabelView secondRadicalLabel;
+        private final ArabicLabelView thirdRadicalLabel;
+        private final ArabicLabelView fourthRadicalLabel;
 
         private SkinView(RootLettersPickerKeyBoard control) {
             this.control = control;
+            firstRadicalLabel = new ArabicLabelView();
+            secondRadicalLabel = new ArabicLabelView();
+            thirdRadicalLabel = new ArabicLabelView();
+            fourthRadicalLabel = new ArabicLabelView();
             initialize();
         }
 

@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.alphasystem.arabic:arabic-support:3.0.0-SNAPSHOT'
     compile 'com.alphasystem.ui:fx-support:3.0.0-SNAPSHOT'
     compile 'com.alphasystem.arabic:morphological-analysis-simple-model:4.0.0-SNAPSHOT'
 }
