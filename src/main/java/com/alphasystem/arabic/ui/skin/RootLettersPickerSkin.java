@@ -33,7 +33,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
         gridPane.setAlignment(getSkinnable().getAlignment());
         gridPane.alignmentProperty().bind(getSkinnable().alignmentProperty());
 
-        RootLettersPickerKeyBoard keyBoard = new RootLettersPickerKeyBoard();
+        RootLettersPickerKeyBoard keyBoard = new RootLettersPickerKeyBoard(getSkinnable().getFontAdapter());
 
         Popup keyboardPopup = new Popup();
         keyboardPopup.setAutoHide(true);
@@ -51,7 +51,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
             getSkinnable().setRootLetters(rootLetters);
         });
 
-        ArabicLabelView label = new ArabicLabelView();
+        ArabicLabelView label = new ArabicLabelView(getSkinnable().getFontAdapter());
         label.setDisable(true);
         label.setWidth(160);
         label.setHeight(32);
@@ -73,9 +73,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
     private void updateView(RootLettersPickerKeyBoard keyBoard, ArabicLabelView label) {
         final RootLettersPicker skinnable = getSkinnable();
         updateLabel(keyBoard, label, skinnable.getRootLetters());
-        skinnable.rootLettersProperty().addListener((o, ov, nv) -> {
-            updateLabel(keyBoard, label, nv);
-        });
+        skinnable.rootLettersProperty().addListener((o, ov, nv) -> updateLabel(keyBoard, label, nv));
     }
 
     private void updateLabel(RootLettersPickerKeyBoard keyBoard, ArabicLabelView label, RootLetters rootLetters) {

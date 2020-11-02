@@ -1,6 +1,7 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.model.ArabicSupport;
+import com.alphasystem.arabic.ui.util.FontAdapter;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.FlowPane;
@@ -25,13 +26,15 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
     protected final ArabicLabelToggleGroup toggleGroup = new ArabicLabelToggleGroup();
     protected final ObservableList<T> values = observableArrayList();
     protected final int numOfColumns;
+    protected final FontAdapter fontAdapter;
 
-    protected ArabicSupportGroupPane(T[] srcValues) {
-        this(DEFAULT_NUM_OF_COLUMNS, srcValues);
+    protected ArabicSupportGroupPane(FontAdapter fontAdapter, T[] srcValues) {
+        this(DEFAULT_NUM_OF_COLUMNS, fontAdapter, srcValues);
     }
 
     @SuppressWarnings({"unchecked"})
-    protected ArabicSupportGroupPane(int numOfColumns, T[] srcValues) {
+    protected ArabicSupportGroupPane(int numOfColumns, FontAdapter fontAdapter, T[] srcValues) {
+        this.fontAdapter = fontAdapter;
         initToggleGroup();
 
         this.numOfColumns = (numOfColumns <= 0) ? DEFAULT_NUM_OF_COLUMNS : numOfColumns;
@@ -90,7 +93,7 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
             flowPane.setHgap(SPACING);
 
             for (ArabicSupport label : subarray) {
-                ArabicLabelView view = new ArabicLabelView(label);
+                ArabicLabelView view = new ArabicLabelView(label, fontAdapter);
                 view.setGroup(toggleGroup);
                 flowPane.getChildren().add(view);
             }

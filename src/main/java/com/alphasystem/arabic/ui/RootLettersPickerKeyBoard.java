@@ -2,7 +2,7 @@ package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.ui.skin.RootLettersPickerKeyBoardSkin;
-import com.alphasystem.arabic.ui.util.FontUtilities;
+import com.alphasystem.arabic.ui.util.FontAdapter;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -31,19 +31,26 @@ public class RootLettersPickerKeyBoard extends Control {
     private final DoubleProperty selectedLabelHeight = new SimpleDoubleProperty(this, "selectedLabelWidth", 32);
     private final DoubleProperty keyboardButtonWidth = new SimpleDoubleProperty(this, "keyboardButtonWidth", 48);
     private final DoubleProperty keyboardButtonHeight = new SimpleDoubleProperty(this, "keyboardButtonHeight", 36);
-    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", FontUtilities.ARABIC_FONT_24);
+    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", null);
     private final DoubleProperty spacing = new SimpleDoubleProperty(this, "spacing", 5);
     private final ReadOnlyObjectWrapper<RootLetters> rootLetters = new ReadOnlyObjectWrapper<>(this, "rootLetters", new RootLetters());
+    private final FontAdapter fontAdapter;
 
-    public RootLettersPickerKeyBoard() {
+    public RootLettersPickerKeyBoard(FontAdapter fontAdapter) {
+        this.fontAdapter = fontAdapter;
         firstRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setFirstRadical(newValue));
         secondRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setSecondRadical(newValue));
         thirdRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setThirdRadical(newValue));
         fourthRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setFourthRadical(newValue));
         setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
+        setFont(fontAdapter.getArabicRegularFont(24));
         setSpacing(SPACING);
         setStyle("-fx-base: beige;");
         setSkin(createDefaultSkin());
+    }
+
+    public FontAdapter getFontAdapter() {
+        return fontAdapter;
     }
 
     @Override

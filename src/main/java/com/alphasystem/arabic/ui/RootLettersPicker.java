@@ -1,7 +1,7 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.ui.skin.RootLettersPickerSkin;
-import com.alphasystem.arabic.ui.util.FontUtilities;
+import com.alphasystem.arabic.ui.util.FontAdapter;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -17,11 +17,17 @@ public class RootLettersPicker extends Control {
 
     private final ObjectProperty<RootLetters> rootLetters = new SimpleObjectProperty<>(null, "rootLetters");
     private final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(this, "alignment", Pos.CENTER_LEFT);
-    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "",
-            FontUtilities.getArabicRegularFont(26));
+    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", null);
+    private final FontAdapter fontAdapter;
 
-    public RootLettersPicker() {
+    public RootLettersPicker(FontAdapter fontAdapter) {
+        this.fontAdapter = fontAdapter;
+        setFont(fontAdapter.getArabicRegularFont(26));
         setSkin(createDefaultSkin());
+    }
+
+    public FontAdapter getFontAdapter() {
+        return fontAdapter;
     }
 
     @Override
@@ -62,6 +68,6 @@ public class RootLettersPicker extends Control {
     }
 
     public void setFont(Font font) {
-        this.font.set((font == null) ? FontUtilities.getArabicRegularFont(26) : font);
+        this.font.set((font == null) ? fontAdapter.getArabicRegularFont(26) : font);
     }
 }

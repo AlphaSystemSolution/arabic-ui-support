@@ -1,6 +1,7 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.ui.skin.NounOfPlaceAndTimesPickerSkin;
+import com.alphasystem.arabic.ui.util.FontAdapter;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.NounOfPlaceAndTime;
 import javafx.scene.control.Skin;
 
@@ -9,13 +10,13 @@ import javafx.scene.control.Skin;
  */
 public class NounOfPlaceTimesPicker extends MultiValuedLabelPicker<NounOfPlaceAndTime> {
 
-    public NounOfPlaceTimesPicker() {
-        super();
+    public NounOfPlaceTimesPicker(FontAdapter fontAdapter) {
+        super(fontAdapter);
     }
 
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new NounOfPlaceAndTimesPickerSkin(this);
+        return new NounOfPlaceAndTimesPickerSkin(fontAdapter, this);
     }
 
     @Override

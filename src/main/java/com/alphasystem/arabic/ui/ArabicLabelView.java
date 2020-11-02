@@ -3,7 +3,7 @@ package com.alphasystem.arabic.ui;
 import com.alphasystem.arabic.model.ArabicSupport;
 import com.alphasystem.arabic.model.ArabicWord;
 import com.alphasystem.arabic.ui.skin.ArabicLabelViewSkin;
-import com.alphasystem.arabic.ui.util.FontUtilities;
+import com.alphasystem.arabic.ui.util.FontAdapter;
 import com.alphasystem.util.IdGenerator;
 import javafx.beans.property.*;
 import javafx.geometry.Pos;
@@ -26,8 +26,7 @@ public class ArabicLabelView extends Control {
 
     private final ReadOnlyBooleanWrapper selected = new ReadOnlyBooleanWrapper(false, "selected");
     private final BooleanProperty select = new SimpleBooleanProperty();
-    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font",
-            FontUtilities.getArabicRegularFont(26));
+    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", null);
     private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this, "stroke", DEFAULT_STROKE);
     private final ObjectProperty<Paint> unSelectedStroke = new SimpleObjectProperty<>(this, "unSelectedStroke", BLACK);
     private final ObjectProperty<Paint> selectedStroke = new SimpleObjectProperty<>(this, "unSelectedStroke", RED);
@@ -36,15 +35,17 @@ public class ArabicLabelView extends Control {
     private final ObjectProperty<ArabicSupport> label = new SimpleObjectProperty<>(null, "label");
     private final StringProperty text = new SimpleStringProperty(null, "text");
     private final ObjectProperty<ArabicLabelToggleGroup> group = new SimpleObjectProperty<>(null, "group");
+    private final FontAdapter fontAdapter;
 
     /**
      * Default Constructor
      */
-    public ArabicLabelView() {
-        this(null);
+    public ArabicLabelView(FontAdapter fontAdapter) {
+        this(null, fontAdapter);
     }
 
-    public ArabicLabelView(ArabicSupport label) {
+    public ArabicLabelView(ArabicSupport label, FontAdapter fontAdapter) {
+        this.fontAdapter = fontAdapter;
         setId(IdGenerator.nextId());
         labelProperty().addListener((o, oV, nV) -> {
             setUserData(nV);
@@ -54,7 +55,7 @@ public class ArabicLabelView extends Control {
         setText(getLabelText(label));
         setWidth(DEFAULT_WIDTH);
         setHeight(DEFAULT_HEIGHT);
-        setFont(FontUtilities.getArabicRegularFont(36));
+        setFont(fontAdapter.getArabicRegularFont(36));
         setStroke(DEFAULT_STROKE);
         setUnSelectedStroke(BLACK);
         setSelectedStroke(RED);
@@ -122,7 +123,7 @@ public class ArabicLabelView extends Control {
     }
 
     public final void setFont(Font font) {
-        this.font.set((font == null) ? FontUtilities.getArabicRegularFont(36) : font);
+        this.font.set((font == null) ? fontAdapter.getArabicRegularFont(36) : font);
     }
 
     public final ObjectProperty<Font> fontProperty() {
