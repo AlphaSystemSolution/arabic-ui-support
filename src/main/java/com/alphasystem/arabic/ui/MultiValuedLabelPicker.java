@@ -1,7 +1,6 @@
 package com.alphasystem.arabic.ui;
 
 import com.alphasystem.arabic.model.ArabicSupport;
-import com.alphasystem.arabic.ui.util.FontAdapter;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -15,17 +14,8 @@ import static javafx.collections.FXCollections.observableArrayList;
  */
 public abstract class MultiValuedLabelPicker<T extends ArabicSupport> extends Control {
 
-    protected final FontAdapter fontAdapter;
     protected final ObservableList<T> values = observableArrayList();
     protected final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(Pos.CENTER_LEFT);
-
-    protected MultiValuedLabelPicker(FontAdapter fontAdapter) {
-        this.fontAdapter = fontAdapter;
-    }
-
-    public FontAdapter getFontAdapter() {
-        return fontAdapter;
-    }
 
     public final ObservableList<T> getValues() {
         return values;

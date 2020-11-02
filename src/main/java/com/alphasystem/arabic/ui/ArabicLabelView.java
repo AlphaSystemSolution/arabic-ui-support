@@ -40,12 +40,12 @@ public class ArabicLabelView extends Control {
     /**
      * Default Constructor
      */
-    public ArabicLabelView(FontAdapter fontAdapter) {
-        this(null, fontAdapter);
+    public ArabicLabelView() {
+        this(null);
     }
 
-    public ArabicLabelView(ArabicSupport label, FontAdapter fontAdapter) {
-        this.fontAdapter = fontAdapter;
+    public ArabicLabelView(ArabicSupport label) {
+        this.fontAdapter = FontAdapter.getInstance();
         setId(IdGenerator.nextId());
         labelProperty().addListener((o, oV, nV) -> {
             setUserData(nV);

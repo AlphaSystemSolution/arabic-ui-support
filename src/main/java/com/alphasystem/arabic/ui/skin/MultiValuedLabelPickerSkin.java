@@ -105,8 +105,8 @@ public class MultiValuedLabelPickerSkin<T extends ArabicSupport> extends SkinBas
 
     protected static class SelectedValuesView<T extends ArabicSupport> extends ArabicSupportGroupPane<T> {
 
-        protected SelectedValuesView(FontAdapter fontAdapter) {
-            super(3, fontAdapter, null);
+        protected SelectedValuesView() {
+            super(3, null);
             setPrefWidth(getComputedWidth());
             getStyleClass().addAll("view");
         }
@@ -116,7 +116,7 @@ public class MultiValuedLabelPickerSkin<T extends ArabicSupport> extends SkinBas
             toggleGroup.setWidth(48);
             toggleGroup.setHeight(40);
             toggleGroup.setDisable(true);
-            toggleGroup.setFont(fontAdapter.getArabicRegularFont(24));
+            toggleGroup.setFont(FontAdapter.getInstance().getArabicRegularFont(24));
         }
     }
 

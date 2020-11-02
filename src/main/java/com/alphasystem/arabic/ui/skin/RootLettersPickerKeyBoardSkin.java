@@ -50,10 +50,10 @@ public class RootLettersPickerKeyBoardSkin extends SkinBase<RootLettersPickerKey
 
         private SkinView(RootLettersPickerKeyBoard control) {
             this.control = control;
-            firstRadicalLabel = new ArabicLabelView(control.getFontAdapter());
-            secondRadicalLabel = new ArabicLabelView(control.getFontAdapter());
-            thirdRadicalLabel = new ArabicLabelView(control.getFontAdapter());
-            fourthRadicalLabel = new ArabicLabelView(control.getFontAdapter());
+            firstRadicalLabel = new ArabicLabelView();
+            secondRadicalLabel = new ArabicLabelView();
+            thirdRadicalLabel = new ArabicLabelView();
+            fourthRadicalLabel = new ArabicLabelView();
             initialize();
         }
 

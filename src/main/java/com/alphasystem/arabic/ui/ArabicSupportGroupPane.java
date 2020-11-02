@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import java.util.Collection;
 import java.util.List;
 
-import static com.alphasystem.fx.ui.util.FontConstants.ARABIC_FONT_30;
 import static com.alphasystem.util.AppUtil.getResource;
 import static javafx.collections.FXCollections.observableArrayList;
 import static org.apache.commons.lang3.ArrayUtils.*;
@@ -26,15 +25,13 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
     protected final ArabicLabelToggleGroup toggleGroup = new ArabicLabelToggleGroup();
     protected final ObservableList<T> values = observableArrayList();
     protected final int numOfColumns;
-    protected final FontAdapter fontAdapter;
 
-    protected ArabicSupportGroupPane(FontAdapter fontAdapter, T[] srcValues) {
-        this(DEFAULT_NUM_OF_COLUMNS, fontAdapter, srcValues);
+    protected ArabicSupportGroupPane(T[] srcValues) {
+        this(DEFAULT_NUM_OF_COLUMNS, srcValues);
     }
 
     @SuppressWarnings({"unchecked"})
-    protected ArabicSupportGroupPane(int numOfColumns, FontAdapter fontAdapter, T[] srcValues) {
-        this.fontAdapter = fontAdapter;
+    protected ArabicSupportGroupPane(int numOfColumns, T[] srcValues) {
         initToggleGroup();
 
         this.numOfColumns = (numOfColumns <= 0) ? DEFAULT_NUM_OF_COLUMNS : numOfColumns;
@@ -93,7 +90,7 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
             flowPane.setHgap(SPACING);
 
             for (ArabicSupport label : subarray) {
-                ArabicLabelView view = new ArabicLabelView(label, fontAdapter);
+                ArabicLabelView view = new ArabicLabelView(label);
                 view.setGroup(toggleGroup);
                 flowPane.getChildren().add(view);
             }
@@ -106,7 +103,7 @@ public abstract class ArabicSupportGroupPane<T extends ArabicSupport> extends VB
     protected void initToggleGroup() {
         toggleGroup.setWidth(92);
         toggleGroup.setHeight(48);
-        toggleGroup.setFont(ARABIC_FONT_30);
+        toggleGroup.setFont(FontAdapter.getInstance().getArabicRegularFont(30));
     }
 
     @Override

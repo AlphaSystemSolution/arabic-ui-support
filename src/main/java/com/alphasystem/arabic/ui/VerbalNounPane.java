@@ -1,7 +1,5 @@
 package com.alphasystem.arabic.ui;
 
-
-import com.alphasystem.arabic.ui.util.FontAdapter;
 import com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun;
 
 import static com.alphasystem.morphologicalanalysis.morphology.model.support.VerbalNoun.*;
@@ -11,8 +9,8 @@ import static com.alphasystem.morphologicalanalysis.morphology.model.support.Ver
  */
 public class VerbalNounPane extends ArabicSupportGroupPane<VerbalNoun> {
 
-    public VerbalNounPane(FontAdapter fontAdapter) {
-        this(fontAdapter, new VerbalNoun[]{VERBAL_NOUN_V1, VERBAL_NOUN_V2, VERBAL_NOUN_V3, VERBAL_NOUN_V4, VERBAL_NOUN_V5,
+    public VerbalNounPane() {
+        this(new VerbalNoun[]{VERBAL_NOUN_V1, VERBAL_NOUN_V2, VERBAL_NOUN_V3, VERBAL_NOUN_V4, VERBAL_NOUN_V5,
                 VERBAL_NOUN_V6, VERBAL_NOUN_V7, VERBAL_NOUN_V8, VERBAL_NOUN_V9, VERBAL_NOUN_V10, VERBAL_NOUN_V11,
                 VERBAL_NOUN_V12, VERBAL_NOUN_V13, VERBAL_NOUN_V14, VERBAL_NOUN_V15, VERBAL_NOUN_V27, VERBAL_NOUN_V28,
                 VERBAL_NOUN_FORM_II, VERBAL_NOUN_FORM_III_V1, VERBAL_NOUN_FORM_III_V2, VERBAL_NOUN_FORM_IV,
@@ -20,11 +18,11 @@ public class VerbalNounPane extends ArabicSupportGroupPane<VerbalNoun> {
                 VERBAL_NOUN_FORM_X});
     }
 
-    private VerbalNounPane(int numOfColumns, FontAdapter fontAdapter, VerbalNoun[] srcValues) {
-        super(numOfColumns, fontAdapter, srcValues);
+    private VerbalNounPane(int numOfColumns, VerbalNoun[] srcValues) {
+        super(numOfColumns, srcValues);
     }
 
-    private VerbalNounPane(FontAdapter fontAdapter, VerbalNoun[] srcValues) {
-        this(DEFAULT_NUM_OF_COLUMNS, fontAdapter, srcValues);
+    private VerbalNounPane(VerbalNoun[] srcValues) {
+        this(DEFAULT_NUM_OF_COLUMNS, srcValues);
     }
 }

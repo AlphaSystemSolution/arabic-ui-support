@@ -4,11 +4,7 @@ import com.alphasystem.arabic.model.ArabicLetterType;
 import com.alphasystem.arabic.ui.skin.RootLettersPickerKeyBoardSkin;
 import com.alphasystem.arabic.ui.util.FontAdapter;
 import com.alphasystem.morphologicalanalysis.morphology.model.RootLetters;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
@@ -34,23 +30,17 @@ public class RootLettersPickerKeyBoard extends Control {
     private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", null);
     private final DoubleProperty spacing = new SimpleDoubleProperty(this, "spacing", 5);
     private final ReadOnlyObjectWrapper<RootLetters> rootLetters = new ReadOnlyObjectWrapper<>(this, "rootLetters", new RootLetters());
-    private final FontAdapter fontAdapter;
 
-    public RootLettersPickerKeyBoard(FontAdapter fontAdapter) {
-        this.fontAdapter = fontAdapter;
+    public RootLettersPickerKeyBoard() {
         firstRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setFirstRadical(newValue));
         secondRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setSecondRadical(newValue));
         thirdRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setThirdRadical(newValue));
         fourthRadicalProperty().addListener((observable, oldValue, newValue) -> rootLetters.get().setFourthRadical(newValue));
         setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
-        setFont(fontAdapter.getArabicRegularFont(24));
+        setFont(FontAdapter.getInstance().getArabicRegularFont(24));
         setSpacing(SPACING);
         setStyle("-fx-base: beige;");
         setSkin(createDefaultSkin());
-    }
-
-    public FontAdapter getFontAdapter() {
-        return fontAdapter;
     }
 
     @Override

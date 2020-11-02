@@ -33,7 +33,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
         gridPane.setAlignment(getSkinnable().getAlignment());
         gridPane.alignmentProperty().bind(getSkinnable().alignmentProperty());
 
-        RootLettersPickerKeyBoard keyBoard = new RootLettersPickerKeyBoard(getSkinnable().getFontAdapter());
+        RootLettersPickerKeyBoard keyBoard = new RootLettersPickerKeyBoard();
 
         Popup keyboardPopup = new Popup();
         keyboardPopup.setAutoHide(true);
@@ -51,7 +51,7 @@ public class RootLettersPickerSkin extends SkinBase<RootLettersPicker> {
             getSkinnable().setRootLetters(rootLetters);
         });
 
-        ArabicLabelView label = new ArabicLabelView(getSkinnable().getFontAdapter());
+        ArabicLabelView label = new ArabicLabelView();
         label.setDisable(true);
         label.setWidth(160);
         label.setHeight(32);
